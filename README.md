@@ -5,11 +5,29 @@ ___
 _this document is under maintenance_
 
 ___
-## TODO:
+## TODO (client):
 ### Functionality:
-- TODO: Some helpful help output
-- TODO: Check for existing package in current folder
-- TODO: Test init command for absolute path output dirs
+- Some helpful help output
+- Check for existing package in current folder
+- Test `init` command for absolute path output dirs
+
+- Commands:
+    - `add` (adds app to package)
+    - `remove` (removes app from package)
+    - `remote` (adds/removes registries)
+    - `push` (pushes package to added registry)
 
 ### UX (Perhaps UI in future)
-- TODO: UX : Should I ask for output folder if folder is not specified as flag
+- Figure out a way to add new versions (maybe something like `commit`)
+- Should I implement something like `revert`?
+- TODO: UX : Should I ask for output folder if it is not specified as `-o / --output` flag
+
+___
+## TODO (server)
+### Functionality:
+- Is not planned
+- Should support retrieving by manifest id (or name)
+
+### UX (Perhaps UI in future)
+- Discuss architecture
+- Is `Manifest.Id` is useless? `Manifest.Name` can be used locally, when cloning remote url is enough
