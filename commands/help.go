@@ -4,18 +4,18 @@ import "fmt"
 
 // Help command prints help message
 type Help struct {
-
 }
 
 func (h Help) getArguments() []string {
-	return []string {}
+	return []string{}
 }
 
 func (h Help) checkRequirements() bool {
 	return true
 }
 
-func (h Help) ExecuteCommand() {
+func (h Help) ExecuteCommand(opts *Opts) CommandResult {
 	fmt.Println()
 	fmt.Println("   Yes, this is help message")
+	return CommandResult{}
 }
