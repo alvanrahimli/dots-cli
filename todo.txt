@@ -1,1 +1,0 @@
-// TODO: Test init command for absolute path output dirs
