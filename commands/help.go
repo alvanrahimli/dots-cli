@@ -19,6 +19,9 @@ func (h Help) CheckRequirements() (bool, string) {
 
 func (h Help) ExecuteCommand(opts *models.Opts) models.CommandResult {
 	fmt.Println()
-	fmt.Println("   Yes, this is help message")
+	fmt.Println("    dots init -o <pack_name> 		Initializes new package in output directory")
+	fmt.Println("    dots add <app1> <app2> 		Adds given apps to package")
+	fmt.Println("    dots remote add <remote_url>	Adds new remote to package")
+	fmt.Println("    To be continued...")
 	return models.CommandResult{}
 }

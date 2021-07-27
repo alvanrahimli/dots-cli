@@ -16,11 +16,11 @@ ___
     - cmd: `remove` (removes app from package)
     - cmd: `remote` (adds/removes registries)
     - cmd: `push` (pushes package to added registry)
+    - cmd: `install` (installs packages to appropriate directories)
 
 ### UX (Perhaps UI in future)
 - Figure out a way to add new versions (maybe something like `commit`)
 - Should I implement something like `revert`?
-- TODO: UX : Should I ask for output folder if it is not specified as `-o / --output` flag
 
 ___
 ## TODO (server)

@@ -30,6 +30,10 @@ func DispatchCommand(args []string) {
 	commands := GetCommands()
 
 	// Print help and exit
+	if len(args) == 0 {
+		commands["help"].ExecuteCommand(&opts)
+		os.Exit(0)
+	}
 	if commands[args[0]] == nil {
 		commands["help"].ExecuteCommand(&opts)
 		os.Exit(0)
