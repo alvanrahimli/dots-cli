@@ -9,8 +9,8 @@ func (p Push) getArguments() []string {
 	return []string{}
 }
 
-func (p Push) checkRequirements() bool {
-	return true
+func (p Push) checkRequirements() (bool, string) {
+	return true, ""
 }
 
 func (p Push) ExecuteCommand(opts *Opts) CommandResult {

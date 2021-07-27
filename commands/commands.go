@@ -18,7 +18,6 @@ func GetCommands() map[string]Command {
 
 func DispatchCommand(args []string) {
 	// Parse CLI arguments
-
 	var opts Opts
 	args, err := flags.ParseArgs(&opts, args)
 	if err != nil {
@@ -37,7 +36,7 @@ func DispatchCommand(args []string) {
 	// Handle command
 	result := commands[args[0]].ExecuteCommand(&opts)
 	if result.Code == 0 {
-		fmt.Printf("Command executed successfully: %s\n", result.Message)
+		fmt.Printf("Command executed successfully:\n\t %s\n", result.Message)
 		os.Exit(0)
 	} else {
 		fmt.Printf("Error occured: %d : %s\n", result.Code, result.Message)

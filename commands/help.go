@@ -10,8 +10,8 @@ func (h Help) getArguments() []string {
 	return []string{}
 }
 
-func (h Help) checkRequirements() bool {
-	return true
+func (h Help) checkRequirements() (bool, string) {
+	return true, ""
 }
 
 func (h Help) ExecuteCommand(opts *Opts) CommandResult {

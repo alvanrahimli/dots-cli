@@ -9,17 +9,31 @@ import (
 
 // Init command initializes new package in given output folder
 type Init struct {
+	Options *Opts
 }
 
 func (i Init) getArguments() []string {
 	return []string{}
 }
 
-func (i Init) checkRequirements() bool {
-	return true
+func (i Init) checkRequirements() (bool, string) {
+	// If there is already manifest file here
+	_, statErr := os.Stat(path.Join(i.Options.OutputDir, "manifest.json"))
+	if statErr != nil {
+		return true, ""
+	}
+
+	return false, "There is already package in this directory"
 }
 
 func (i Init) ExecuteCommand(opts *Opts) CommandResult {
+	i.Options = opts
+	satisfiesRequirements, message := i.checkRequirements()
+	if !satisfiesRequirements {
+		fmt.Printf("Init command can not work in this directory:\n\t%s\n", message)
+		os.Exit(1)
+	}
+
 	// If no value is given, use current directory
 	if opts.OutputDir == "" {
 		opts.OutputDir = "."

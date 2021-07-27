@@ -2,7 +2,7 @@ package commands
 
 type Command interface {
 	getArguments() []string
-	checkRequirements() bool
+	checkRequirements() (bool, string)
 	ExecuteCommand(opts *Opts) CommandResult
 }
 
@@ -17,7 +17,6 @@ type Opts struct {
 	Version     string `long:"version" description:"Package version"`
 	AuthorName  string `long:"author-name" description:"Author name"`
 	AuthorEmail string `long:"author-email" description:"Author email"`
-	// TODO: Specify all commands
 }
 
 func NewManifest() Manifest {

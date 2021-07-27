@@ -8,8 +8,8 @@ func (a Add) getArguments() []string {
 	return []string{}
 }
 
-func (a Add) checkRequirements() bool {
-	return true
+func (a Add) checkRequirements() (bool, string) {
+	return true, ""
 }
 
 func (a Add) ExecuteCommand(opts *Opts) CommandResult {

@@ -8,8 +8,8 @@ func (r Remote) getArguments() []string {
 	return []string{}
 }
 
-func (r Remote) checkRequirements() bool {
-	return true
+func (r Remote) checkRequirements() (bool, string) {
+	return true, ""
 }
 
 func (r Remote) ExecuteCommand(opts *Opts) CommandResult {
