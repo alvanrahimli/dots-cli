@@ -1,10 +1,7 @@
-package commands
+package utils
 
 import (
 	"dots/models"
-	"encoding/json"
-	"os"
-	"path"
 	"strconv"
 	"strings"
 )
@@ -20,19 +17,4 @@ func NewPackageVersion(versionStr string) models.Version {
 		Minor: minorVersion,
 		Patch: patchVersion,
 	}
-}
-
-func WriteManifestFile(outDir string, manifest *models.Manifest) error {
-	manifestBytes, marshallErr := json.MarshalIndent(manifest, "", "  ")
-	if marshallErr != nil {
-		return marshallErr
-	}
-
-	fileDir := path.Join(outDir, "manifest.json")
-	writeErr := os.WriteFile(fileDir, manifestBytes, os.ModePerm)
-	if writeErr != nil {
-		return writeErr
-	}
-
-	return nil
 }

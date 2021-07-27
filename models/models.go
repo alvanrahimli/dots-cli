@@ -1,5 +1,7 @@
 package models
 
+import "fmt"
+
 type Command interface {
 	GetArguments() []string
 	CheckRequirements() (bool, string)
@@ -45,6 +47,10 @@ type Version struct {
 	Major int
 	Minor int
 	Patch int
+}
+
+func (v Version) ToString() string {
+	return fmt.Sprintf("%d.%d.%d", v.Major, v.Minor, v.Patch)
 }
 
 type Author struct {

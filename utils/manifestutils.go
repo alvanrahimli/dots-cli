@@ -37,3 +37,18 @@ func AppExistsInManifest(appName string, manifest *models.Manifest) bool {
 
 	return false
 }
+
+func WriteManifestFile(outDir string, manifest *models.Manifest) error {
+	manifestBytes, marshallErr := json.MarshalIndent(manifest, "", "  ")
+	if marshallErr != nil {
+		return marshallErr
+	}
+
+	fileDir := path.Join(outDir, "manifest.json")
+	writeErr := os.WriteFile(fileDir, manifestBytes, os.ModePerm)
+	if writeErr != nil {
+		return writeErr
+	}
+
+	return nil
+}

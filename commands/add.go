@@ -83,7 +83,7 @@ func (a Add) ExecuteCommand(opts *models.Opts) models.CommandResult {
 		}
 	}
 
-	manifestWriteErr := WriteManifestFile(opts.OutputDir, &manifest)
+	manifestWriteErr := utils.WriteManifestFile(opts.OutputDir, &manifest)
 	if manifestWriteErr != nil {
 		return models.CommandResult{
 			Code:    1,

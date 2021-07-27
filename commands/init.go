@@ -2,10 +2,12 @@ package commands
 
 import (
 	"dots/models"
+	"dots/utils"
 	"fmt"
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 )
 
 // Init command initializes new package in given output folder
@@ -52,11 +54,19 @@ func (i Init) ExecuteCommand(opts *models.Opts) models.CommandResult {
 	// Package name
 	if opts.PackageName == "" {
 		var packageName string
-		fmt.Print("Package name: ")
+		// Initialize default packageName
+		if strings.Contains(opts.OutputDir, "/") {
+			packageName = path.Base(opts.PackageName)
+		} else {
+			packageName = opts.OutputDir
+		}
+
+		fmt.Printf("Package name (%s): ", packageName)
 		_, scanErr := fmt.Scanln(&packageName)
 		if scanErr != nil {
-			fmt.Printf("ERROR: %s\n", scanErr.Error())
-			os.Exit(1)
+			// As we initialized default value, we dont need to print error
+			//fmt.Printf("ERROR: %s\n", scanErr.Error())
+			//os.Exit(1)
 		}
 
 		opts.PackageName = packageName
@@ -93,22 +103,27 @@ func (i Init) ExecuteCommand(opts *models.Opts) models.CommandResult {
 
 	// Package version
 	if opts.Version == "" {
-		var packageVersion models.Version
-		fmt.Print("Package version: ")
+		packageVersion := models.Version{
+			Major: 1,
+			Minor: 0,
+			Patch: 0,
+		}
+		fmt.Printf("Package version (%s): ", packageVersion.ToString())
 		_, scanErr := fmt.Scanf("%d.%d.%d",
 			&packageVersion.Major,
 			&packageVersion.Minor,
 			&packageVersion.Patch)
 		if scanErr != nil {
-			fmt.Printf("ERROR: %s\n", scanErr.Error())
-			os.Exit(1)
+			// As we initialized default value, we dont need to print error
+			//fmt.Printf("ERROR: %s\n", scanErr.Error())
+			//os.Exit(1)
 		}
 		manifest.Version = packageVersion
 	} else {
-		manifest.Version = NewPackageVersion(opts.Version)
+		manifest.Version = utils.NewPackageVersion(opts.Version)
 	}
 
-	writeErr := WriteManifestFile(opts.OutputDir, &manifest)
+	writeErr := utils.WriteManifestFile(opts.OutputDir, &manifest)
 	if writeErr != nil {
 		fmt.Printf("ERROR: %s\n", writeErr.Error())
 		os.Exit(1)
