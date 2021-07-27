@@ -8,14 +8,14 @@ ___
 ## TODO (client):
 ### Functionality:
 - Some helpful help output
-- Check for existing package in current folder
-- Test `init` command for absolute path output dirs
+- ~~Check for existing package in current folder~~
+- ~~Test `init` command for absolute path output dirs~~
 
 - Commands:
-    - `add` (adds app to package)
-    - `remove` (removes app from package)
-    - `remote` (adds/removes registries)
-    - `push` (pushes package to added registry)
+    - ~~cmd: `add` (adds app to package)~~
+    - cmd: `remove` (removes app from package)
+    - cmd: `remote` (adds/removes registries)
+    - cmd: `push` (pushes package to added registry)
 
 ### UX (Perhaps UI in future)
 - Figure out a way to add new versions (maybe something like `commit`)

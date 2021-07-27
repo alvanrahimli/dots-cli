@@ -1,17 +1,19 @@
 package commands
 
+import "dots/models"
+
 // Remote command adds/removes registries for package in current folder
 type Remote struct {
 }
 
-func (r Remote) getArguments() []string {
+func (r Remote) GetArguments() []string {
 	return []string{}
 }
 
-func (r Remote) checkRequirements() (bool, string) {
+func (r Remote) CheckRequirements() (bool, string) {
 	return true, ""
 }
 
-func (r Remote) ExecuteCommand(opts *Opts) CommandResult {
-	return CommandResult{}
+func (r Remote) ExecuteCommand(opts *models.Opts) models.CommandResult {
+	return models.CommandResult{}
 }

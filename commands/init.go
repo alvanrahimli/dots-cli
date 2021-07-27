@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"dots/models"
 	"fmt"
 	"os"
 	"path"
@@ -9,14 +10,14 @@ import (
 
 // Init command initializes new package in given output folder
 type Init struct {
-	Options *Opts
+	Options *models.Opts
 }
 
-func (i Init) getArguments() []string {
+func (i Init) GetArguments() []string {
 	return []string{}
 }
 
-func (i Init) checkRequirements() (bool, string) {
+func (i Init) CheckRequirements() (bool, string) {
 	// If there is already manifest file here
 	_, statErr := os.Stat(path.Join(i.Options.OutputDir, "manifest.json"))
 	if statErr != nil {
@@ -26,9 +27,9 @@ func (i Init) checkRequirements() (bool, string) {
 	return false, "There is already package in this directory"
 }
 
-func (i Init) ExecuteCommand(opts *Opts) CommandResult {
+func (i Init) ExecuteCommand(opts *models.Opts) models.CommandResult {
 	i.Options = opts
-	satisfiesRequirements, message := i.checkRequirements()
+	satisfiesRequirements, message := i.CheckRequirements()
 	if !satisfiesRequirements {
 		fmt.Printf("Init command can not work in this directory:\n\t%s\n", message)
 		os.Exit(1)
@@ -46,7 +47,7 @@ func (i Init) ExecuteCommand(opts *Opts) CommandResult {
 	}
 
 	// Initialize manifest object
-	manifest := NewManifest()
+	manifest := models.NewManifest()
 
 	// Package name
 	if opts.PackageName == "" {
@@ -92,7 +93,7 @@ func (i Init) ExecuteCommand(opts *Opts) CommandResult {
 
 	// Package version
 	if opts.Version == "" {
-		var packageVersion Version
+		var packageVersion models.Version
 		fmt.Print("Package version: ")
 		_, scanErr := fmt.Scanf("%d.%d.%d",
 			&packageVersion.Major,
@@ -120,7 +121,7 @@ func (i Init) ExecuteCommand(opts *Opts) CommandResult {
 	}
 
 	finalPath := path.Join(filepath.Dir(ex), opts.OutputDir)
-	return CommandResult{
+	return models.CommandResult{
 		Code:    0,
 		Message: fmt.Sprintf("Initialized empty dots package in %s", finalPath),
 	}

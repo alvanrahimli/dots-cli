@@ -1,13 +1,14 @@
 package commands
 
 import (
+	"dots/models"
 	"fmt"
 	"github.com/jessevdk/go-flags"
 	"os"
 )
 
-func GetCommands() map[string]Command {
-	return map[string]Command{
+func GetCommands() map[string]models.Command {
+	return map[string]models.Command{
 		"help":   Help{},
 		"init":   Init{},
 		"add":    Add{},
@@ -18,12 +19,13 @@ func GetCommands() map[string]Command {
 
 func DispatchCommand(args []string) {
 	// Parse CLI arguments
-	var opts Opts
+	var opts models.Opts
 	args, err := flags.ParseArgs(&opts, args)
 	if err != nil {
 		fmt.Printf("ERROR: %s\n", err.Error())
 		os.Exit(1)
 	}
+	opts.Arguments = args
 
 	commands := GetCommands()
 

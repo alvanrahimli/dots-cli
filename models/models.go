@@ -1,8 +1,8 @@
-package commands
+package models
 
 type Command interface {
-	getArguments() []string
-	checkRequirements() (bool, string)
+	GetArguments() []string
+	CheckRequirements() (bool, string)
 	ExecuteCommand(opts *Opts) CommandResult
 }
 
@@ -17,6 +17,8 @@ type Opts struct {
 	Version     string `long:"version" description:"Package version"`
 	AuthorName  string `long:"author-name" description:"Author name"`
 	AuthorEmail string `long:"author-email" description:"Author email"`
+	//AppName		string `short:"a" long:"app" description:"App to add to package"`
+	Arguments []string
 }
 
 func NewManifest() Manifest {
@@ -26,7 +28,7 @@ func NewManifest() Manifest {
 		Name:    "",
 		Author:  Author{},
 		Apps:    make([]App, 0),
-		Remotes: make([]Remote, 0),
+		Remotes: make([]RemoteAddr, 0),
 	}
 }
 
@@ -36,7 +38,7 @@ type Manifest struct {
 	Name    string
 	Author  Author
 	Apps    []App
-	Remotes []Remote
+	Remotes []RemoteAddr
 }
 
 type Version struct {

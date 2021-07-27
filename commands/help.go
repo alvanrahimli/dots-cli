@@ -1,21 +1,24 @@
 package commands
 
-import "fmt"
+import (
+	"dots/models"
+	"fmt"
+)
 
 // Help command prints help message
 type Help struct {
 }
 
-func (h Help) getArguments() []string {
+func (h Help) GetArguments() []string {
 	return []string{}
 }
 
-func (h Help) checkRequirements() (bool, string) {
+func (h Help) CheckRequirements() (bool, string) {
 	return true, ""
 }
 
-func (h Help) ExecuteCommand(opts *Opts) CommandResult {
+func (h Help) ExecuteCommand(opts *models.Opts) models.CommandResult {
 	fmt.Println()
 	fmt.Println("   Yes, this is help message")
-	return CommandResult{}
+	return models.CommandResult{}
 }
