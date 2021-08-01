@@ -25,22 +25,24 @@ type Opts struct {
 
 func NewManifest() Manifest {
 	return Manifest{
-		Id:      "",
-		Version: Version{},
-		Name:    "",
-		Author:  Author{},
-		Apps:    make([]App, 0),
-		Remotes: make([]RemoteAddr, 0),
+		Id:       "",
+		Name:     "",
+		Author:   Author{},
+		Modified: true,
+		Versions: make([]Version, 0),
+		Apps:     make([]App, 0),
+		Remotes:  make([]RemoteAddr, 0),
 	}
 }
 
 type Manifest struct {
-	Id      string
-	Version Version
-	Name    string
-	Author  Author
-	Apps    []App
-	Remotes []RemoteAddr
+	Id       string
+	Name     string
+	Author   Author
+	Modified bool
+	Versions []Version
+	Apps     []App
+	Remotes  []RemoteAddr
 }
 
 type Version struct {

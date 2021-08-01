@@ -120,9 +120,9 @@ func (i Init) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 			//fmt.Printf("ERROR: %s\n", scanErr.Error())
 			//os.Exit(1)
 		}
-		manifest.Version = packageVersion
+		manifest.Versions = append(manifest.Versions, packageVersion)
 	} else {
-		manifest.Version = utils.NewPackageVersion(opts.Version)
+		manifest.Versions = append(manifest.Versions, utils.NewPackageVersion(opts.Version))
 	}
 
 	writeErr := utils.WriteManifestFile(opts.OutputDir, &manifest)

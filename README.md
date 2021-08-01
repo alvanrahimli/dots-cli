@@ -1,4 +1,4 @@
-# dots-cli documentation
+# dots-cli - todo
 ___
 `dots` is CLI tool to build, version and publish config file bundles.
 
@@ -7,7 +7,7 @@ _this document is under maintenance_
 ___
 ## TODO (client):
 ### Functionality:
-- __CRITIC__: Use config file for app handlers. (They all return static data, just read from file)
+- ~~__CRITIC__: Use config file for app handlers. (They all return static data, just read from file)~~
 - ~~Some helpful help output~~
 - ~~Check for existing package in current folder~~
 - ~~Test `init` command for absolute path output dirs~~
@@ -15,6 +15,7 @@ ___
 - Commands:
     - ~~cmd: `add` (adds app to package)~~
     - cmd: `remove` (removes app from package)
+    - cmd: `pack` (same as commit, makes package version)
     - cmd: `remote` (adds/removes registries)
     - cmd: `push` (pushes package to added registry)
       - DISCUSS: Should we use git?

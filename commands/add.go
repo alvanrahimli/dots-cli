@@ -88,6 +88,11 @@ func (a Add) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 		}
 	}
 
+	// If there are new apps change modified to true
+	if len(addedApps) > 0 {
+		manifest.Modified = true
+	}
+
 	manifestWriteErr := utils.WriteManifestFile(opts.OutputDir, &manifest)
 	if manifestWriteErr != nil {
 		return models.CommandResult{
