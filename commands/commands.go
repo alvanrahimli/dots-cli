@@ -1,23 +1,23 @@
 package commands
 
 import (
-	"dots/models"
 	"fmt"
+	"github.com/dots/models"
 	"github.com/jessevdk/go-flags"
 	"os"
 )
 
 func GetCommands() map[string]models.Command {
 	return map[string]models.Command{
-		"help":   Help{},
-		"init":   Init{},
-		"add":    Add{},
-		"push":   Push{},
-		"remote": Remote{},
+		"help": Help{},
+		"init": Init{},
+		"add":  Add{},
+		//"push":   Push{},
+		//"remote": Remote{},
 	}
 }
 
-func DispatchCommand(args []string) {
+func DispatchCommand(config *models.AppConfig, args []string) {
 	// Parse CLI arguments
 	var opts models.Opts
 	args, err := flags.ParseArgs(&opts, args)
@@ -31,21 +31,21 @@ func DispatchCommand(args []string) {
 
 	// Print help and exit
 	if len(args) == 0 {
-		commands["help"].ExecuteCommand(&opts)
+		commands["help"].ExecuteCommand(&opts, config)
 		os.Exit(0)
 	}
 	if commands[args[0]] == nil {
-		commands["help"].ExecuteCommand(&opts)
+		commands["help"].ExecuteCommand(&opts, config)
 		os.Exit(0)
 	}
 
 	// Handle command
-	result := commands[args[0]].ExecuteCommand(&opts)
+	result := commands[args[0]].ExecuteCommand(&opts, config)
 	if result.Code == 0 {
 		fmt.Printf("Command executed successfully:\n\t %s\n", result.Message)
 		os.Exit(0)
 	} else {
-		fmt.Printf("Error occured: %d : %s\n", result.Code, result.Message)
+		fmt.Printf("Error occured: %s\n", result.Message)
 		os.Exit(1)
 	}
 }

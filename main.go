@@ -1,11 +1,13 @@
 package main
 
 import (
-	"dots/commands"
+	"github.com/dots/commands"
+	"github.com/dots/utils"
 	"os"
 )
 
 func main() {
+	config := utils.ReadConfig()
 	// Cut app name
-	commands.DispatchCommand(os.Args[1:])
+	commands.DispatchCommand(config, os.Args[1:])
 }

@@ -5,7 +5,7 @@ import "fmt"
 type Command interface {
 	GetArguments() []string
 	CheckRequirements() (bool, string)
-	ExecuteCommand(opts *Opts) CommandResult
+	ExecuteCommand(opts *Opts, config *AppConfig) CommandResult
 }
 
 type CommandResult struct {
@@ -66,4 +66,16 @@ type App struct {
 type RemoteAddr struct {
 	Name string
 	Url  string
+}
+
+type AppConfig struct {
+	AuthorName  string
+	AuthorEmail string
+	Handlers    map[string]Handler
+}
+
+type Handler struct {
+	Version    string
+	ConfigRoot string
+	Dotfiles   []string
 }

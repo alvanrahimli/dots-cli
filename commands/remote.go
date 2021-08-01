@@ -1,6 +1,6 @@
 package commands
 
-import "dots/models"
+import "github.com/dots/models"
 
 // Remote command adds/removes registries for package in current folder
 type Remote struct {

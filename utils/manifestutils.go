@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"dots/models"
 	"encoding/json"
+	"github.com/dots/models"
 	"os"
 	"path"
 )

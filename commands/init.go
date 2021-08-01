@@ -1,9 +1,9 @@
 package commands
 
 import (
-	"dots/models"
-	"dots/utils"
 	"fmt"
+	"github.com/dots/models"
+	"github.com/dots/utils"
 	"os"
 	"path"
 	"path/filepath"
@@ -29,7 +29,7 @@ func (i Init) CheckRequirements() (bool, string) {
 	return false, "There is already package in this directory"
 }
 
-func (i Init) ExecuteCommand(opts *models.Opts) models.CommandResult {
+func (i Init) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.CommandResult {
 	i.Options = opts
 	satisfiesRequirements, message := i.CheckRequirements()
 	if !satisfiesRequirements {
@@ -75,12 +75,13 @@ func (i Init) ExecuteCommand(opts *models.Opts) models.CommandResult {
 
 	// Author name
 	if opts.AuthorName == "" {
-		var authorName string
-		fmt.Print("Author name: ")
+		authorName := config.AuthorName
+		fmt.Printf("Author name (%s): ", authorName)
 		_, scanErr := fmt.Scanln(&authorName)
 		if scanErr != nil {
-			fmt.Printf("ERROR: %s\n", scanErr.Error())
-			os.Exit(1)
+			// As we initialized default value, we dont need to print error
+			//fmt.Printf("ERROR: %s\n", scanErr.Error())
+			//os.Exit(1)
 		}
 
 		opts.AuthorName = authorName
@@ -89,12 +90,13 @@ func (i Init) ExecuteCommand(opts *models.Opts) models.CommandResult {
 
 	// Author email
 	if opts.AuthorEmail == "" {
-		var authorEmail string
-		fmt.Print("Author email: ")
+		authorEmail := config.AuthorEmail
+		fmt.Printf("Author email (%s): ", authorEmail)
 		_, scanErr := fmt.Scanln(&authorEmail)
 		if scanErr != nil {
-			fmt.Printf("ERROR: %s\n", scanErr.Error())
-			os.Exit(1)
+			// As we initialized default value, we dont need to print error
+			//fmt.Printf("ERROR: %s\n", scanErr.Error())
+			//os.Exit(1)
 		}
 
 		opts.AuthorEmail = authorEmail

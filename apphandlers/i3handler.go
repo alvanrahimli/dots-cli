@@ -1,7 +1,7 @@
 package apphandlers
 
 import (
-	"dots/models"
+	"github.com/dots/models"
 	"os"
 	"os/exec"
 )

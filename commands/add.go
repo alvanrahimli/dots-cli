@@ -1,10 +1,10 @@
 package commands
 
 import (
-	"dots/apphandlers"
-	"dots/models"
-	"dots/utils"
 	"fmt"
+	"github.com/dots/apphandlers"
+	"github.com/dots/models"
+	"github.com/dots/utils"
 	"os"
 	"path"
 	"strings"
@@ -27,7 +27,7 @@ func (a Add) CheckRequirements() (bool, string) {
 	return true, ""
 }
 
-func (a Add) ExecuteCommand(opts *models.Opts) models.CommandResult {
+func (a Add) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.CommandResult {
 	a.Options = opts
 	// Check if arguments satisfy required arguments for add command
 	satisfiesRequirements, message := a.CheckRequirements()
@@ -62,14 +62,19 @@ func (a Add) ExecuteCommand(opts *models.Opts) models.CommandResult {
 	}
 
 	addedApps := make([]string, 0)
+	failedApps := make([]string, 0)
 	// Copy files to package
 	for _, appName := range possibleAppNames {
-		added, message := apphandlers.HandleApp(opts.OutputDir, appName)
+		added, message := apphandlers.HandleApp(config, opts.OutputDir, appName)
 		if added {
 			addedApps = append(addedApps, appName)
-			manifest.Apps = append(manifest.Apps, apphandlers.GetApp(appName))
+			manifest.Apps = append(manifest.Apps, models.App{
+				Name:    appName,
+				Version: config.Handlers[appName].Version,
+			})
 		} else {
-			fmt.Printf("ERROR: %s\n", message)
+			fmt.Printf("%s\n", message)
+			failedApps = append(failedApps, appName)
 		}
 	}
 
@@ -91,9 +96,18 @@ func (a Add) ExecuteCommand(opts *models.Opts) models.CommandResult {
 		}
 	}
 
-	return models.CommandResult{
-		Code: 0,
-		Message: fmt.Sprintf("Following apps added to package: %s\n",
-			strings.Join(addedApps, ", ")),
+	if len(addedApps) > 0 {
+		return models.CommandResult{
+			Code: 0,
+			Message: fmt.Sprintf("Following apps added to package: %s\n"+
+				"\tThese apps could not be added: %s\n",
+				strings.Join(addedApps, ", "), strings.Join(failedApps, ", ")),
+		}
+	} else {
+		return models.CommandResult{
+			Code: 1,
+			Message: fmt.Sprintf("These apps could not be added: %s\n",
+				strings.Join(failedApps, ", ")),
+		}
 	}
 }

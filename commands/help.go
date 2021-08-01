@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"dots/models"
 	"fmt"
+	"github.com/dots/models"
 )
 
 // Help command prints help message
@@ -17,7 +17,7 @@ func (h Help) CheckRequirements() (bool, string) {
 	return true, ""
 }
 
-func (h Help) ExecuteCommand(opts *models.Opts) models.CommandResult {
+func (h Help) ExecuteCommand(opts *models.Opts, _ *models.AppConfig) models.CommandResult {
 	fmt.Println()
 	fmt.Println("    dots init -o <pack_name> 		Initializes new package in output directory")
 	fmt.Println("    dots add <app1> <app2> 		Adds given apps to package")

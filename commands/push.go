@@ -1,6 +1,6 @@
 package commands
 
-import "dots/models"
+import "github.com/dots/models"
 
 // Push command pushes package to already added registry
 // Registries can be added using `dots remote add` command

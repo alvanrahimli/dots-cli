@@ -7,7 +7,8 @@ _this document is under maintenance_
 ___
 ## TODO (client):
 ### Functionality:
-- Some helpful help output
+- __CRITIC__: Use config file for app handlers. (They all return static data, just read from file)
+- ~~Some helpful help output~~
 - ~~Check for existing package in current folder~~
 - ~~Test `init` command for absolute path output dirs~~
 
@@ -16,7 +17,9 @@ ___
     - cmd: `remove` (removes app from package)
     - cmd: `remote` (adds/removes registries)
     - cmd: `push` (pushes package to added registry)
+      - DISCUSS: Should we use git?
     - cmd: `install` (installs packages to appropriate directories)
+      - DISCUSS: Should we use git?
 
 ### UX (Perhaps UI in future)
 - Figure out a way to add new versions (maybe something like `commit`)
