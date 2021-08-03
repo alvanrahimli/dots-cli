@@ -13,6 +13,7 @@ func GetCommands() map[string]models.Command {
 		"init":   Init{},
 		"add":    Add{},
 		"remove": Remove{},
+		"pack":   Pack{},
 		//"push":   Push{},
 		//"remote": Remote{},
 	}
@@ -27,6 +28,7 @@ func DispatchCommand(config *models.AppConfig, args []string) {
 		os.Exit(1)
 	}
 	opts.Arguments = args
+	opts.NormalizeFlags()
 
 	commands := GetCommands()
 

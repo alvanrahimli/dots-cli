@@ -78,7 +78,7 @@ func (a Add) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 		}
 	}
 
-	// Write manifest to file
+	// Remove old manifest
 	manifestPath := path.Join(opts.OutputDir, "manifest.json")
 	removeErr := os.Remove(manifestPath)
 	if removeErr != nil {
@@ -88,20 +88,23 @@ func (a Add) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 		}
 	}
 
-	// If there are new apps change modified to true
+	// If there are new apps
 	if len(addedApps) > 0 {
-		manifest.Modified = true
-	}
-
-	manifestWriteErr := utils.WriteManifestFile(opts.OutputDir, &manifest)
-	if manifestWriteErr != nil {
-		return models.CommandResult{
-			Code:    1,
-			Message: "Could write updated manifest file",
+		if !manifest.Modified {
+			manifest.Modified = true
+			// Offer new version
+			manifest.OfferNewVersion()
 		}
-	}
 
-	if len(addedApps) > 0 {
+		// Save manifest file
+		manifestWriteErr := utils.WriteManifestFile(opts.OutputDir, &manifest)
+		if manifestWriteErr != nil {
+			return models.CommandResult{
+				Code:    1,
+				Message: "Could write updated manifest file",
+			}
+		}
+
 		return models.CommandResult{
 			Code: 0,
 			Message: fmt.Sprintf("Following apps added to package: %s\n"+

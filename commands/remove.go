@@ -94,7 +94,23 @@ func (r Remove) ExecuteCommand(opts *models.Opts, _ *models.AppConfig) models.Co
 
 	// Removed successfully
 	if len(message) == 0 {
-		manifest.Modified = true
+		// Remove old manifest
+		manifestPath := path.Join(opts.OutputDir, "manifest.json")
+		removeErr := os.Remove(manifestPath)
+		if removeErr != nil {
+			return models.CommandResult{
+				Code:    1,
+				Message: "Could not remove old manifest file",
+			}
+		}
+
+		if !manifest.Modified {
+			manifest.Modified = true
+			// Offer new version
+			manifest.OfferNewVersion()
+		}
+
+		// Save new manifest
 		saveErr := utils.WriteManifestFile(opts.OutputDir, &manifest)
 		if saveErr != nil {
 			return models.CommandResult{

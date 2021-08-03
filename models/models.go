@@ -55,6 +55,18 @@ func (v Version) ToString() string {
 	return fmt.Sprintf("%d.%d.%d", v.Major, v.Minor, v.Patch)
 }
 
+func (v Version) ToFormattedString() string {
+	return fmt.Sprintf("%d_%d_%d", v.Major, v.Minor, v.Patch)
+}
+
+func (v Version) IncreaseVersionNumber(major, minor, patch int) Version {
+	return Version{
+		Major: v.Major + major,
+		Minor: v.Minor + minor,
+		Patch: v.Patch + patch,
+	}
+}
+
 type Author struct {
 	Name  string
 	Email string
@@ -80,4 +92,30 @@ type Handler struct {
 	Version    string
 	ConfigRoot string
 	Dotfiles   []string
+}
+
+func (manifest *Manifest) OfferNewVersion() {
+	version := manifest.Versions[len(manifest.Versions)-1]
+	newVersion := version.IncreaseVersionNumber(0, 0, 1)
+	fmt.Printf("Enter new version number (%s -> %s): ",
+		version.ToString(), newVersion.ToString())
+	_, scanErr := fmt.Scanf("%d.%d.%d",
+		&newVersion.Major,
+		&newVersion.Minor,
+		&newVersion.Patch)
+	if scanErr != nil {
+		manifest.Versions = append(manifest.Versions, version.IncreaseVersionNumber(0, 0, 1))
+	} else {
+		manifest.Versions = append(manifest.Versions, newVersion)
+	}
+}
+
+func (manifest *Manifest) LastVersion() *Version {
+	return &manifest.Versions[len(manifest.Versions)-1]
+}
+
+func (opts *Opts) NormalizeFlags() {
+	if opts.OutputDir == "" {
+		opts.OutputDir = "."
+	}
 }
