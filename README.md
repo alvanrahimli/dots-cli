@@ -13,13 +13,14 @@ ___
 - ~~Test `init` command for absolute path output dirs~~
 - ~~Multiple version support~~
 - ~~Modified indicator~~
-- Keep version archives in `$PACK/.vers/`
+- ~~Keep version archives in `$PACK/.vers/`~~
 
 
 - Commands:
+    - ~~cmd: `init` (initializes empty package)~~
     - ~~cmd: `add` (adds app to package)~~
     - ~~cmd: `remove` (removes app from package)~~
-    - cmd: `pack` (same as commit, makes package version)
+    - ~~cmd: `pack` (same as commit, makes package version)~~
     - cmd: `remote` (adds/removes registries)
     - cmd: `push` (pushes package to added registry)
       - DISCUSS: Should we use git?
@@ -34,7 +35,7 @@ ___
 ## TODO (server)
 ### Functionality:
 - Is not planned
-- Should support retrieving by manifest id (or name)
+- DISCUSS: Should we support retrieving by manifest id (or name)?
 
 ### UX (Perhaps UI in future)
 - Discuss architecture
