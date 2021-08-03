@@ -9,9 +9,10 @@ import (
 
 func GetCommands() map[string]models.Command {
 	return map[string]models.Command{
-		"help": Help{},
-		"init": Init{},
-		"add":  Add{},
+		"help":   Help{},
+		"init":   Init{},
+		"add":    Add{},
+		"remove": Remove{},
 		//"push":   Push{},
 		//"remote": Remote{},
 	}
