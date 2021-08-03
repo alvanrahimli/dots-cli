@@ -5,16 +5,6 @@ import (
 	"github.com/dots/models"
 )
 
-func ItemExistsInList(item string, list []string) bool {
-	for _, i := range list {
-		if i == item {
-			return true
-		}
-	}
-
-	return false
-}
-
 func IndexOfApp(appName string, list []models.App) int {
 	for i, app := range list {
 		if app.Name == appName {
