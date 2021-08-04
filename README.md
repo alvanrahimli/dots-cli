@@ -2,6 +2,11 @@
 
 `dots` is CLI tool to build, version and publish config file bundles.
 
+## TODO (shared):
+- [ ] Writing comprehensive documentation
+- [ ] Designing landing page
+- [ ] Providing screenshots/videos for demonstration
+
 ## TODO (client):
 ### Functionality:
 - [ ] Commands:
@@ -16,4 +21,10 @@
     
 ## TODO (server)
 ### Functionality:
-- [ ] Whole planning and implementing
+- [x] Modelling
+- [x] Login / Register API endpoints
+- [ ] Push package API endpoint
+- [ ] Read, Update & Delete packages API endpoint
+- [ ] Enhanced models (info, settings etc.)
+- [ ] Enhanced endpoints for webapp
+- [ ] Security considerations
