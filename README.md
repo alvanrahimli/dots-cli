@@ -19,7 +19,7 @@
     - [ ] cmd: `push` (pushes package to added registry)
     - [ ] cmd: `install` (installs packages to appropriate directories)
     
-## TODO (server)
+## TODO ([dots-server](github.com/alvanrahimli/dots-server))
 ### Functionality:
 - [x] Modelling
 - [x] Login / Register API endpoints
