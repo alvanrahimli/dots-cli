@@ -1,13 +1,24 @@
 package main
 
 import (
-	"github.com/dots/commands"
-	"github.com/dots/utils"
+	"fmt"
+	"github.com/alvanrahimli/dots-cli/commands"
+	"github.com/alvanrahimli/dots-cli/utils"
 	"os"
 )
 
 func main() {
-	config := utils.ReadConfig()
-	// Cut app name
-	commands.DispatchCommand(config, os.Args[1:])
+	config, configErr := utils.ReadConfig()
+	if configErr != nil {
+		if os.IsNotExist(configErr) {
+			// TODO: Create new config file if not exists
+		}
+
+		fmt.Printf("ERROR: %s\n", configErr.Error())
+		return
+	}
+
+	// Dispatch command
+	withoutAppName := os.Args[1:]
+	commands.DispatchCommand(config, withoutAppName)
 }

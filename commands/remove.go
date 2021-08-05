@@ -2,8 +2,8 @@ package commands
 
 import (
 	"fmt"
-	"github.com/dots/models"
-	"github.com/dots/utils"
+	"github.com/alvanrahimli/dots-cli/models"
+	"github.com/alvanrahimli/dots-cli/utils"
 	"os"
 	"path"
 )

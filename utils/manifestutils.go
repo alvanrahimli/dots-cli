@@ -2,7 +2,7 @@ package utils
 
 import (
 	"encoding/json"
-	"github.com/dots/models"
+	"github.com/alvanrahimli/dots-cli/models"
 	"os"
 	"path"
 )

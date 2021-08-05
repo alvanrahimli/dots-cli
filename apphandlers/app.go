@@ -6,8 +6,8 @@ import (
 	"path"
 	"strings"
 
-	"github.com/dots/models"
-	"github.com/dots/utils"
+	"github.com/alvanrahimli/dots-cli/models"
+	"github.com/alvanrahimli/dots-cli/utils"
 )
 
 type App interface {
@@ -39,7 +39,7 @@ func HandleApp(config *models.AppConfig, packageDir string, appName string) (boo
 		app = &foundApp
 	} else {
 		return false, fmt.Sprintf("Handler for '%s' does not exist. "+
-			"\nPlease consider contributing at github.com/alvanrahimli/dots-cli\n", appName)
+			"\nPlease consider contributing at github.com/alvanrahimli/dots-cli-cli\n", appName)
 	}
 
 	locatedDotfiles := GetExistingDotfiles(app.Dotfiles)

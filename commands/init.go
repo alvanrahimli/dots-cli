@@ -2,8 +2,8 @@ package commands
 
 import (
 	"fmt"
-	"github.com/dots/models"
-	"github.com/dots/utils"
+	"github.com/alvanrahimli/dots-cli/models"
+	"github.com/alvanrahimli/dots-cli/utils"
 	"os"
 	"path"
 	"path/filepath"
@@ -140,6 +140,6 @@ func (i Init) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 	finalPath := path.Join(filepath.Dir(ex), opts.OutputDir)
 	return models.CommandResult{
 		Code:    0,
-		Message: fmt.Sprintf("Initialized empty dots package in %s", finalPath),
+		Message: fmt.Sprintf("Initialized empty dots-cli package in %s", finalPath),
 	}
 }

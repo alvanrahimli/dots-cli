@@ -2,8 +2,8 @@ package commands
 
 import (
 	"fmt"
-	"github.com/dots/models"
-	"github.com/dots/utils"
+	"github.com/alvanrahimli/dots-cli/models"
+	"github.com/alvanrahimli/dots-cli/utils"
 	"os"
 	"path"
 )
@@ -60,7 +60,7 @@ func (p Pack) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 		}
 	}
 
-	tarFileName := fmt.Sprintf("%s-%s-dots.tar.gz", manifest.Name, manifest.LastVersion().ToFormattedString())
+	tarFileName := fmt.Sprintf("%s-%s-dots-cli.tar.gz", manifest.Name, manifest.LastVersion().ToFormattedString())
 	tarballPath := path.Join(versFolderPath, tarFileName)
 	tarballErr := utils.CreateTarball(opts.OutputDir, tarballPath)
 	if tarballErr != nil {

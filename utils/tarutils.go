@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-// CreateTarball creates tarball from sourceFolder and saves it to tarballFilePath
+// CreateTarball creates tarball out of sourceFolder and saves it to tarballFilePath
 //goland:noinspection ALL
 func CreateTarball(sourceFolder, tarballFilePath string) error {
 	file, err := os.Create(tarballFilePath)
@@ -34,7 +34,7 @@ func CreateTarball(sourceFolder, tarballFilePath string) error {
 			return nil
 		}
 
-		// TODO: Ignore .vers folder
+		// Do not include .vers folder to tarball
 		if strings.Contains(path, ".vers") {
 			return nil
 		}

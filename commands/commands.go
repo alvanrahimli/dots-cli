@@ -2,7 +2,7 @@ package commands
 
 import (
 	"fmt"
-	"github.com/dots/models"
+	"github.com/alvanrahimli/dots-cli/models"
 	"github.com/jessevdk/go-flags"
 	"os"
 )

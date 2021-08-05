@@ -2,7 +2,7 @@ package utils
 
 import (
 	"fmt"
-	"github.com/dots/models"
+	"github.com/alvanrahimli/dots-cli/models"
 )
 
 func IndexOfApp(appName string, list []models.App) int {

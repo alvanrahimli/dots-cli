@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/dots/models"
+	"github.com/alvanrahimli/dots-cli/models"
 	"strconv"
 	"strings"
 )

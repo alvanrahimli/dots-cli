@@ -1,9 +1,9 @@
 package commands
 
-import "github.com/dots/models"
+import "github.com/alvanrahimli/dots-cli/models"
 
 // Push command pushes package to already added registry
-// Registries can be added using `dots remote add` command
+// Registries can be added using `dots-cli remote add` command
 type Push struct {
 }
 
