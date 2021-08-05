@@ -99,6 +99,28 @@ func (l Login) ExecuteCommand(opts *models.Opts, config *models.AppConfig) model
 		}
 	}
 
+	if config.AuthorName != loginResponse.Data.User.Username {
+		fmt.Printf("Signed User's name (%s) does not match with entered author name (%s)",
+			loginResponse.Data.User.Username, config.AuthorName)
+		fmt.Println("Would you like to change it? [Y/n] ")
+		var choice string
+		_, scanErr = fmt.Scanln(&choice)
+		if scanErr != nil || choice == "y" || choice == "Y" {
+			config.AuthorName = loginResponse.Data.User.Username
+		}
+	}
+
+	if config.AuthorEmail != loginResponse.Data.User.Email {
+		fmt.Printf("Signed User's email (%s) does not match with entered author email (%s)",
+			loginResponse.Data.User.Email, config.AuthorEmail)
+		fmt.Println("Would you like to change it? [Y/n] ")
+		var choice string
+		_, scanErr = fmt.Scanln(&choice)
+		if scanErr != nil || choice == "y" || choice == "Y" {
+			config.AuthorEmail = loginResponse.Data.User.Email
+		}
+	}
+
 	config.AuthorToken = loginResponse.Data.Token
 	saveErr := utils.SaveConfig(config)
 	if saveErr != nil {
