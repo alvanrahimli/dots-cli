@@ -1,4 +1,4 @@
-module github.com/dots
+module github.com/alvanrahimli/dots-cli
 
 go 1.16
 
