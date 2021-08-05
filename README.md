@@ -27,8 +27,9 @@
 ### Functionality:
 - [x] Modelling
 - [x] Login / Register API endpoints
-- [ ] Push package API endpoint
-- [ ] Read, Update & Delete packages API endpoint
+- [x] Push package API endpoint
+- [x] Get PackageArchive endpoint
+- [ ] Update & Delete packages endpoint
 - [ ] Enhanced models (info, settings etc.)
 - [ ] Enhanced endpoints for webapp
 - [ ] Security considerations
