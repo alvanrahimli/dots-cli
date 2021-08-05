@@ -60,7 +60,7 @@ func (p Pack) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 		}
 	}
 
-	tarFileName := fmt.Sprintf("%s-%s-dots-cli.tar.gz", manifest.Name, manifest.LastVersion().ToFormattedString())
+	tarFileName := fmt.Sprintf(models.TarballNameFormat, manifest.Name, manifest.LastVersion().ToFormattedString())
 	tarballPath := path.Join(versFolderPath, tarFileName)
 	tarballErr := utils.CreateTarball(opts.OutputDir, tarballPath)
 	if tarballErr != nil {
