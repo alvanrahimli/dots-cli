@@ -18,6 +18,10 @@
     - [ ] cmd: `remote` (adds/removes registries)
     - [ ] cmd: `push` (pushes package to added registry)
     - [ ] cmd: `install` (installs packages to appropriate directories)
+    - [ ] cmd: `list`(lists apps)
+      - [ ] `added` (lists added apps in package)
+      - [ ] `all` (lists all possible apps from config)
+      - [ ] `installed` (lists possible apps which are installed on system)
     
 ## TODO ([dots-server](github.com/alvanrahimli/dots-server))
 ### Functionality:
