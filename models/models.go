@@ -85,6 +85,7 @@ type RemoteAddr struct {
 type AppConfig struct {
 	AuthorName  string
 	AuthorEmail string
+	AuthorToken string
 	Handlers    map[string]Handler
 }
 

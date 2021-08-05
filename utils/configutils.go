@@ -32,3 +32,28 @@ func ReadConfig() (*models.AppConfig, error) {
 
 	return &config, nil
 }
+
+func SaveConfig(config *models.AppConfig) error {
+	configPath, confDirErr := os.UserConfigDir()
+	if confDirErr != nil {
+		return confDirErr
+	}
+
+	configPath = path.Join(configPath, "dots-cli", "config.json")
+	removeErr := os.Remove(configPath)
+	if removeErr != nil {
+		return removeErr
+	}
+
+	bytes, jsonErr := json.MarshalIndent(config, "", "  ")
+	if jsonErr != nil {
+		return jsonErr
+	}
+
+	writeErr := os.WriteFile(configPath, bytes, os.ModePerm)
+	if writeErr != nil {
+		return writeErr
+	}
+
+	return nil
+}

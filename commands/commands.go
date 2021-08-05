@@ -14,6 +14,7 @@ func GetCommands() map[string]models.Command {
 		"add":    Add{},
 		"remove": Remove{},
 		"pack":   Pack{},
+		"login":  Login{},
 		//"push":   Push{},
 		//"remote": Remote{},
 	}
