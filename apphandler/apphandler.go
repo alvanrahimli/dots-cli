@@ -1,4 +1,4 @@
-package apphandlers
+package apphandler
 
 import (
 	"fmt"

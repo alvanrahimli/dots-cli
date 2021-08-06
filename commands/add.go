@@ -2,7 +2,7 @@ package commands
 
 import (
 	"fmt"
-	"github.com/alvanrahimli/dots-cli/apphandlers"
+	"github.com/alvanrahimli/dots-cli/apphandler"
 	"github.com/alvanrahimli/dots-cli/models"
 	"github.com/alvanrahimli/dots-cli/utils"
 	"os"
@@ -65,7 +65,7 @@ func (a Add) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 	failedApps := make([]string, 0)
 	// Copy files to package
 	for _, appName := range possibleAppNames {
-		added, message := apphandlers.HandleApp(config, opts.OutputDir, appName)
+		added, message := apphandler.HandleApp(config, opts.OutputDir, appName)
 		if added {
 			addedApps = append(addedApps, appName)
 			manifest.Apps = append(manifest.Apps, models.App{
