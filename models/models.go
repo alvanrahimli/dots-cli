@@ -19,6 +19,7 @@ type Opts struct {
 	Version     string `long:"version" description:"Package version"`
 	AuthorName  string `long:"author-name" description:"Author name"`
 	AuthorEmail string `long:"author-email" description:"Author email"`
+	Installed   bool   `long:"installed" description:"Should app print only installed apps"`
 	//AppName		string `short:"a" long:"app" description:"App to add to package"`
 	Arguments []string
 }

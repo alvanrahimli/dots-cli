@@ -39,7 +39,7 @@ func (p Push) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 	if !satisfiesRequirements {
 		return models.CommandResult{
 			Code:    1,
-			Message: fmt.Sprintf("Init command can not work in this directory:\n\t%s\n", message),
+			Message: fmt.Sprintf("Push command can not work in this directory:\n\t%s\n", message),
 		}
 	}
 

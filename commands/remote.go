@@ -45,7 +45,7 @@ func (r Remote) ExecuteCommand(opts *models.Opts, config *models.AppConfig) mode
 	if !satisfiesRequirements {
 		return models.CommandResult{
 			Code:    1,
-			Message: fmt.Sprintf("Init command can not work in this directory:\n\t%s\n", message),
+			Message: fmt.Sprintf("Remote command can not work in this directory:\n\t%s\n", message),
 		}
 	}
 

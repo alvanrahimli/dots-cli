@@ -16,17 +16,15 @@
     - [x] cmd: `pack` (saves package's current state)
     - [x] cmd: `login` (signs user in and saves token)
     - [x] cmd: `push` (pushes package to added registry)
-      - [x] ``
     - [x] cmd: `remote` (adds/removes registries)
       - [x] `add` (adds remote registry)
       - [x] `remove` (removes remote registry)
+    - [x] cmd: `list`(lists apps)
+      - [x] `added` (lists added apps in package)
+      - [x] `all` (use --installed flag to list only apps found on system) (lists all possible apps from config)
     - [ ] cmd: `install` (installs packages to appropriate directories)
     - [ ] cmd: `get` (downloads package)
     - [ ] cmd: `revert` (loads previous version)
-    - [ ] cmd: `list`(lists apps)
-      - [ ] `added` (lists added apps in package)
-      - [ ] `all` (lists all possible apps from config)
-      - [ ] `installed` (lists possible apps which are installed on system)
 
 ## TODO ([dots-server](github.com/alvanrahimli/dots-server))
 ### Functionality:
