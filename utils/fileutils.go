@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 )
 
@@ -59,4 +60,25 @@ func copyFileContent(src, dst string) error {
 
 	err = out.Sync()
 	return err
+}
+
+func DownloadFile(sourceUrl string) (string, error) {
+	fileResponse, getErr := http.Get(sourceUrl)
+	if getErr != nil {
+		return "", getErr
+	}
+	defer fileResponse.Body.Close()
+
+	tmpFile, createErr := os.CreateTemp(os.TempDir(), "dots-pack-archive-*.tar.gz")
+	if createErr != nil {
+		return "", createErr
+	}
+	defer tmpFile.Close()
+
+	_, copyErr := io.Copy(tmpFile, fileResponse.Body)
+	if copyErr != nil {
+		return "", copyErr
+	}
+
+	return tmpFile.Name(), nil
 }

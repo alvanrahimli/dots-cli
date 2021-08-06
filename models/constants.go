@@ -5,4 +5,5 @@ const (
 	TarballNameFormat  = "%s-%s-dots-cli.tar.gz"
 	LoginEndpoint      = "http://localhost:8080/login"
 	AddPackageEndpoint = "packages/add"
+	PackagesEndpoint   = "packages/"
 )

@@ -23,7 +23,7 @@
       - [x] `added` (lists added apps in package)
       - [x] `all` (use --installed flag to list only apps found on system) (lists all possible apps from config)
     - [ ] cmd: `install` (installs packages to appropriate directories)
-    - [ ] cmd: `get` (downloads package)
+    - [x] cmd: `get` (downloads package)
     - [ ] cmd: `revert` (loads previous version)
 
 ## TODO ([dots-server](github.com/alvanrahimli/dots-server))

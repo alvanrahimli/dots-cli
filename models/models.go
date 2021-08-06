@@ -87,6 +87,7 @@ type AppConfig struct {
 	AuthorName  string
 	AuthorEmail string
 	AuthorToken string
+	Registry    string
 	Handlers    map[string]Handler
 }
 
