@@ -16,8 +16,11 @@
     - [x] cmd: `pack` (saves package's current state)
     - [x] cmd: `login` (signs user in and saves token)
     - [x] cmd: `push` (pushes package to added registry)
+      - [x] ``
+    - [x] cmd: `remote` (adds/removes registries)
+      - [x] `add` (adds remote registry)
+      - [x] `remove` (removes remote registry)
     - [ ] cmd: `revert` (loads previous version)
-    - [ ] cmd: `remote` (adds/removes registries)
     - [ ] cmd: `install` (installs packages to appropriate directories)
     - [ ] cmd: `list`(lists apps)
       - [ ] `added` (lists added apps in package)

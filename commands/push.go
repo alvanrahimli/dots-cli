@@ -8,6 +8,7 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"net/url"
 	"os"
 	"path"
 	"regexp"
@@ -17,6 +18,7 @@ import (
 // Push command pushes package to already added registry
 // Registries can be added using `dots-cli remote add` command
 type Push struct {
+	Options *models.Opts
 }
 
 func (p Push) GetArguments() []string {
@@ -24,10 +26,23 @@ func (p Push) GetArguments() []string {
 }
 
 func (p Push) CheckRequirements() (bool, string) {
+	if len(p.Options.Arguments) < 2 {
+		return false, "Insufficient amount of arguments entered for 'push'"
+	}
+
 	return true, ""
 }
 
 func (p Push) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.CommandResult {
+	p.Options = opts
+	satisfiesRequirements, message := p.CheckRequirements()
+	if !satisfiesRequirements {
+		return models.CommandResult{
+			Code:    1,
+			Message: fmt.Sprintf("Init command can not work in this directory:\n\t%s\n", message),
+		}
+	}
+
 	// Check for token
 	if config.AuthorToken == "" {
 		return models.CommandResult{
@@ -94,7 +109,26 @@ func (p Push) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 		"version": strings.NewReader(strings.ReplaceAll(selectedVersion, "_", ".")),
 		"archive": mustOpen(archiveFullPath),
 	}
-	uploadErr := Upload(client, models.AddPackageEndpoint, values, config)
+
+	// Get remote url from manifest by name
+	var selectedRemote models.RemoteAddr
+	for _, remote := range manifest.Remotes {
+		if remote.Name == p.Options.Arguments[1] {
+			selectedRemote = remote
+			break
+		}
+	}
+
+	remoteUrl, urlErr := url.Parse(selectedRemote.Url)
+	if urlErr != nil {
+		return models.CommandResult{
+			Code:    1,
+			Message: "Could not parse remote url",
+		}
+	}
+
+	addPackageUrl := fmt.Sprintf("%s://%s/%s", remoteUrl.Scheme, remoteUrl.Host, models.AddPackageEndpoint)
+	uploadErr := Upload(client, addPackageUrl, values, config)
 	if uploadErr != nil {
 		fmt.Println(uploadErr.Error())
 		return models.CommandResult{

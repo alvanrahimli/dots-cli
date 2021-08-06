@@ -39,13 +39,24 @@ func AppExistsInManifest(appName string, manifest *models.Manifest) bool {
 }
 
 func WriteManifestFile(outDir string, manifest *models.Manifest) error {
+	// Remove old manifest file
+	manifestPath := path.Join(outDir, "manifest.json")
+	_, statErr := os.Stat(manifestPath)
+	if statErr == nil {
+		removeErr := os.Remove(manifestPath)
+		if removeErr != nil {
+			return removeErr
+		}
+	}
+
+	// Serialize manifest
 	manifestBytes, marshallErr := json.MarshalIndent(manifest, "", "  ")
 	if marshallErr != nil {
 		return marshallErr
 	}
 
-	fileDir := path.Join(outDir, "manifest.json")
-	writeErr := os.WriteFile(fileDir, manifestBytes, os.ModePerm)
+	// Save new manifest file
+	writeErr := os.WriteFile(manifestPath, manifestBytes, os.ModePerm)
 	if writeErr != nil {
 		return writeErr
 	}

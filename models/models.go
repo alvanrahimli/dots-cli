@@ -28,7 +28,7 @@ func NewManifest() Manifest {
 		Id:       "",
 		Name:     "",
 		Author:   Author{},
-		Modified: false,
+		Modified: true,
 		Versions: make([]Version, 0),
 		Apps:     make([]App, 0),
 		Remotes:  make([]RemoteAddr, 0),
