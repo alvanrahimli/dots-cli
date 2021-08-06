@@ -20,13 +20,14 @@
     - [x] cmd: `remote` (adds/removes registries)
       - [x] `add` (adds remote registry)
       - [x] `remove` (removes remote registry)
-    - [ ] cmd: `revert` (loads previous version)
     - [ ] cmd: `install` (installs packages to appropriate directories)
+    - [ ] cmd: `get` (downloads package)
+    - [ ] cmd: `revert` (loads previous version)
     - [ ] cmd: `list`(lists apps)
       - [ ] `added` (lists added apps in package)
       - [ ] `all` (lists all possible apps from config)
       - [ ] `installed` (lists possible apps which are installed on system)
-    
+
 ## TODO ([dots-server](github.com/alvanrahimli/dots-server))
 ### Functionality:
 - [x] Modelling
