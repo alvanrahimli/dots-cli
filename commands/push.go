@@ -3,6 +3,7 @@ package commands
 import (
 	"bytes"
 	"fmt"
+	"github.com/alvanrahimli/dots-cli/dlog"
 	"github.com/alvanrahimli/dots-cli/models"
 	"github.com/alvanrahimli/dots-cli/utils"
 	"io"
@@ -172,6 +173,7 @@ func Upload(client *http.Client, url string, values map[string]io.Reader, config
 	w.Close()
 
 	// Now that you have a form, you can submit it to your handler.
+	dlog.Info("Sending POST request to %s\n", url)
 	req, err := http.NewRequest("POST", url, &b)
 	if err != nil {
 		return
@@ -188,7 +190,7 @@ func Upload(client *http.Client, url string, values map[string]io.Reader, config
 
 	// Check the response
 	if res.StatusCode != http.StatusOK {
-		err = fmt.Errorf("bad status: %s", res.Status)
+		err = fmt.Errorf("could not upload package: %s", res.Status)
 	}
 	return
 }

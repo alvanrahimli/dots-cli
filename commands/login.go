@@ -3,9 +3,9 @@ package commands
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/alvanrahimli/dots-cli/dlog"
 	"github.com/alvanrahimli/dots-cli/models"
 	"github.com/alvanrahimli/dots-cli/utils"
-	"io"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -25,7 +25,7 @@ func (l Login) CheckRequirements() (bool, string) {
 	return true, ""
 }
 
-func (l Login) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.CommandResult {
+func (l Login) ExecuteCommand(_ *models.Opts, config *models.AppConfig) models.CommandResult {
 	var email, password string
 
 	// Ask for email
@@ -49,44 +49,36 @@ func (l Login) ExecuteCommand(opts *models.Opts, config *models.AppConfig) model
 	}
 
 	// Send POST request
+	loginUrl := config.Registry + models.LoginEndpoint
 	data := url.Values{}
 	data.Set("email", email)
 	data.Set("password", password)
+	headers := map[string]string{
+		"Content-Type":   "application/x-www-form-urlencoded",
+		"Content-Length": strconv.Itoa(len(data.Encode())),
+	}
+	bodyReader := strings.NewReader(data.Encode())
 
-	client := &http.Client{}
-	req, reqErr := http.NewRequest("POST", models.LoginEndpoint, strings.NewReader(data.Encode()))
-	if reqErr != nil {
+	responseBody, statusCode, httpErr := utils.HttpPost(loginUrl, headers, bodyReader)
+	if httpErr != nil {
+		dlog.Err(httpErr.Error())
 		return models.CommandResult{
 			Code:    1,
-			Message: "Could not initialize request",
+			Message: "Could not finish http request",
 		}
 	}
 
-	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
-
-	res, resErr := client.Do(req)
-	if resErr != nil {
-		fmt.Println(resErr.Error())
-		return models.CommandResult{
-			Code:    1,
-			Message: "Could not get response",
-		}
-	}
-
-	if res.StatusCode == http.StatusUnauthorized {
+	if statusCode == http.StatusUnauthorized {
 		return models.CommandResult{
 			Code:    1,
 			Message: "Invalid email or password provided",
 		}
 	}
 
-	defer res.Body.Close()
-	responseBody, bodyErr := io.ReadAll(res.Body)
-	if bodyErr != nil {
+	if statusCode == http.StatusNotFound {
 		return models.CommandResult{
 			Code:    1,
-			Message: "Could not read response data",
+			Message: "Could not find user with given email",
 		}
 	}
 

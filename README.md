@@ -25,6 +25,7 @@
     - [ ] cmd: `install` (installs packages to appropriate directories)
     - [x] cmd: `get` (downloads package)
     - [ ] cmd: `revert` (loads previous version)
+    - [ ] cmd: Find better place for logs.txt
 
 ## TODO ([dots-server](github.com/alvanrahimli/dots-server))
 ### Functionality:

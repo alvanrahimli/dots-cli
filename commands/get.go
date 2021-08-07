@@ -3,10 +3,10 @@ package commands
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/alvanrahimli/dots-cli/dlog"
 	"github.com/alvanrahimli/dots-cli/models"
 	"github.com/alvanrahimli/dots-cli/utils"
 	"io"
-	"log"
 	"net/http"
 	"os"
 )
@@ -40,8 +40,12 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 	packageName := g.Options.Arguments[1]
 
 	client := &http.Client{}
-	request, reqErr := http.NewRequest("GET", config.Registry+models.PackagesEndpoint+packageName, nil)
+	// config.Registry + models.PackagesEndpoint + packageName
+	getUrl := fmt.Sprintf("%s/%s/%s", config.Registry, models.PackagesEndpoint, packageName)
+	dlog.Info("Sending HTTP GET to %s", getUrl)
+	request, reqErr := http.NewRequest("GET", getUrl, nil)
 	if reqErr != nil {
+		dlog.Err(reqErr.Error())
 		return models.CommandResult{
 			Code:    1,
 			Message: "Could not initialize request",
@@ -50,6 +54,7 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 
 	res, doErr := client.Do(request)
 	if doErr != nil {
+		dlog.Err(doErr.Error())
 		return models.CommandResult{
 			Code:    1,
 			Message: "Error occurred while getting response",
@@ -57,6 +62,7 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 	}
 
 	if res.StatusCode == http.StatusNotFound {
+		dlog.Err("Could not find package %s\n", packageName)
 		return models.CommandResult{
 			Code:    1,
 			Message: fmt.Sprintf("Could not find package with name: %s", packageName),
@@ -66,6 +72,7 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 	defer res.Body.Close()
 	responseBody, bodyErr := io.ReadAll(res.Body)
 	if bodyErr != nil {
+		dlog.Err(bodyErr.Error())
 		return models.CommandResult{
 			Code:    1,
 			Message: "Could not read response data",
@@ -75,7 +82,7 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 	response := models.GetPackagesResponse{}
 	jsonErr := json.Unmarshal(responseBody, &response)
 	if jsonErr != nil {
-		log.Fatal(jsonErr)
+		dlog.Err(jsonErr.Error())
 		return models.CommandResult{
 			Code:    1,
 			Message: "Could not parse response data. Check app version",
@@ -95,11 +102,12 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 		for i, pack := range response.Data.Packages {
 			fmt.Printf("\n\t%d) %s", i+1, pack.Version)
 		}
-		fmt.Print("\n\n\tEnter version: ")
+		fmt.Print("\n\nEnter version: ")
 
 		var version string
 		_, scanErr := fmt.Scanln(&version)
 		if scanErr != nil {
+			dlog.Err(scanErr.Error())
 			return models.CommandResult{
 				Code:    1,
 				Message: "Could not read version number",
@@ -114,9 +122,10 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 	}
 
 	// Download archive to /tmp
-	archiveUrl = config.Registry + archiveUrl
+	archiveUrl = fmt.Sprintf("%s/%s", config.Registry, archiveUrl)
 	archiveFilePath, downloadErr := utils.DownloadFile(archiveUrl)
 	if downloadErr != nil {
+		dlog.Err(downloadErr.Error())
 		return models.CommandResult{
 			Code:    1,
 			Message: fmt.Sprintf("Could not download file from %s", archiveUrl),
@@ -126,6 +135,7 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 	// Extract archiveFile to output directory
 	archiveFile, openErr := os.Open(archiveFilePath)
 	if openErr != nil {
+		dlog.Err(openErr.Error())
 		return models.CommandResult{
 			Code:    1,
 			Message: "Could not open downloaded archive",
@@ -134,6 +144,7 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 
 	unTarErr := utils.UnTar(g.Options.OutputDir, archiveFile)
 	if unTarErr != nil {
+		dlog.Err(unTarErr.Error())
 		return models.CommandResult{
 			Code:    1,
 			Message: "Could not un-tar archive",

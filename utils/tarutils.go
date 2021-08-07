@@ -92,7 +92,10 @@ func addFileToTarWriter(filePath, relativePath string, tarWriter *tar.Writer) er
 }
 
 func normalizePath(packFolder, dotfile string) string {
-	dotfile = strings.Replace(dotfile, packFolder, "", -1)
+	if packFolder != "." {
+		dotfile = strings.Replace(dotfile, packFolder, "", -1)
+	}
+
 	if dotfile[:1] == "/" {
 		dotfile = dotfile[1:]
 	}
