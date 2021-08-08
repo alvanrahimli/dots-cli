@@ -20,7 +20,12 @@ func CopyFile(sourceFileName, destFileName string) error {
 
 	destStat, statErr := os.Stat(destFileName)
 	if statErr != nil {
-		if !os.IsNotExist(statErr) {
+		if os.IsNotExist(statErr) {
+			_, createErr := os.Create(destFileName)
+			if createErr != nil {
+				return createErr
+			}
+		} else {
 			return statErr
 		}
 	} else {
