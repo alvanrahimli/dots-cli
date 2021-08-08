@@ -3,47 +3,49 @@ package dlog
 import (
 	"log"
 	"os"
-	"time"
+	"path"
+	"strings"
 )
 
 var (
-	InfoLogger  *log.Logger
-	WarnLogger  *log.Logger
-	ErrLogger   *log.Logger
-	DebugLogger *log.Logger
+	infoLogger  *log.Logger
+	warnLogger  *log.Logger
+	errLogger   *log.Logger
+	debugLogger *log.Logger
 )
 
 func init() {
-	file, err := os.OpenFile("logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	homeDir, homeErr := os.UserHomeDir()
+	if homeErr != nil {
+		return
+	}
+
+	logFilePath := path.Join(homeDir, ".dots-cli.log")
+	file, err := os.OpenFile(logFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	InfoLogger = log.New(file, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
-	WarnLogger = log.New(file, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)
-	ErrLogger = log.New(file, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
-	DebugLogger = log.New(file, "DEBUG: ", log.Ldate|log.Ltime|log.Lshortfile)
+	infoLogger = log.New(file, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
+	warnLogger = log.New(file, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)
+	errLogger = log.New(file, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
+	debugLogger = log.New(file, "DEBUG: ", log.Ldate|log.Ltime|log.Lshortfile)
 
-	InfoLogger.Printf("========| APP STARTED at %s |========\n",
-		time.Now().Format("02/01/2006 15:04:05"))
+	infoLogger.Printf("========| APP STARTED (command: %s) |========\n", strings.Join(os.Args, " "))
 }
 
 func Info(msg string, params ...interface{}) {
-	newLine := msg + "\n"
-	InfoLogger.Printf(newLine, params...)
+	infoLogger.Printf(msg+"\n", params...)
 }
 
 func Warn(msg string, params ...interface{}) {
-	newLine := msg + "\n"
-	WarnLogger.Printf(newLine, params...)
+	warnLogger.Printf(msg+"\n", params...)
 }
 
 func Err(msg string, params ...interface{}) {
-	newLine := msg + "\n"
-	ErrLogger.Printf(newLine, params...)
+	errLogger.Printf(msg+"\n", params...)
 }
 
 func Debug(msg string, params ...interface{}) {
-	newLine := msg + "\n"
-	DebugLogger.Printf(newLine, params...)
+	debugLogger.Printf(msg+"\n", params...)
 }

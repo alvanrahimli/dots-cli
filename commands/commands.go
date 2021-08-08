@@ -32,6 +32,9 @@ func DispatchCommand(config *models.AppConfig, args []string) {
 	}
 	opts.Arguments = args
 	opts.NormalizeFlags()
+	if opts.OutputDir == "" {
+		opts.OutputDir = "."
+	}
 
 	commands := GetCommands()
 

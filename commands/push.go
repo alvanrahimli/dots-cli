@@ -27,7 +27,7 @@ func (p Push) GetArguments() []string {
 }
 
 func (p Push) CheckRequirements() (bool, string) {
-	if len(p.Options.Arguments) < 2 {
+	if len(p.Options.Arguments) < 1 {
 		return false, "Insufficient amount of arguments entered for 'push'"
 	}
 
@@ -97,6 +97,13 @@ func (p Push) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 	archiveFullPath := path.Join(versFolder, archiveName)
 	_, statErr := os.Stat(archiveFullPath)
 	if statErr != nil {
+		if os.IsNotExist(statErr) {
+			return models.CommandResult{
+				Code: 1,
+				Message: fmt.Sprintf("Could not find any package for version %s. Run 'dots pack' first.",
+					strings.ReplaceAll(selectedVersion, "_", ".")),
+			}
+		}
 		return models.CommandResult{
 			Code:    1,
 			Message: fmt.Sprintf("Could not read archive file '%s'", archiveFullPath),
@@ -111,16 +118,29 @@ func (p Push) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 		"archive": mustOpen(archiveFullPath),
 	}
 
-	// Get remote url from manifest by name
-	var selectedRemote models.RemoteAddr
-	for _, remote := range manifest.Remotes {
-		if remote.Name == p.Options.Arguments[1] {
-			selectedRemote = remote
-			break
+	selectedRemoteUrl := ""
+	// If remote name is not given, push to default registry
+	if len(p.Options.Arguments) == 1 {
+		selectedRemoteUrl = fmt.Sprintf("%s/%s", config.Registry, models.AddPackageEndpoint)
+	} else {
+		// Get remote url from manifest by name
+		for _, remote := range manifest.Remotes {
+			if remote.Name == p.Options.Arguments[1] {
+				selectedRemoteUrl = remote.Url
+				break
+			}
 		}
 	}
 
-	remoteUrl, urlErr := url.Parse(selectedRemote.Url)
+	if selectedRemoteUrl == "" {
+		dlog.Warn("Could not find any remote address")
+		return models.CommandResult{
+			Code:    1,
+			Message: "Could not find any remote address",
+		}
+	}
+
+	remoteUrl, urlErr := url.Parse(selectedRemoteUrl)
 	if urlErr != nil {
 		return models.CommandResult{
 			Code:    1,

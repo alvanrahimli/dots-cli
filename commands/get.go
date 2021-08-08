@@ -39,8 +39,8 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 
 	packageName := g.Options.Arguments[1]
 
+	// TODO: Support other registries by absolute url
 	client := &http.Client{}
-	// config.Registry + models.PackagesEndpoint + packageName
 	getUrl := fmt.Sprintf("%s/%s/%s", config.Registry, models.PackagesEndpoint, packageName)
 	dlog.Info("Sending HTTP GET to %s", getUrl)
 	request, reqErr := http.NewRequest("GET", getUrl, nil)
@@ -91,12 +91,9 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 
 	// Select package version to download
 	var archiveUrl string
-	if g.Options.Version != "" {
-		for _, pack := range response.Data.Packages {
-			if pack.Version == g.Options.Version {
-				archiveUrl = pack.ArchiveName
-			}
-		}
+	//if g.Options.Version != "" {
+	if len(response.Data.Packages) == 1 {
+		archiveUrl = response.Data.Packages[0].ArchiveName
 	} else {
 		fmt.Println("Multiple versions found. Please enter version number you want to get")
 		for i, pack := range response.Data.Packages {
@@ -123,6 +120,7 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 
 	// Download archive to /tmp
 	archiveUrl = fmt.Sprintf("%s/%s", config.Registry, archiveUrl)
+	dlog.Info("Downloading archive from '%s'", archiveUrl)
 	archiveFilePath, downloadErr := utils.DownloadFile(archiveUrl)
 	if downloadErr != nil {
 		dlog.Err(downloadErr.Error())

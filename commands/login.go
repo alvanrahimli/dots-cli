@@ -49,7 +49,7 @@ func (l Login) ExecuteCommand(_ *models.Opts, config *models.AppConfig) models.C
 	}
 
 	// Send POST request
-	loginUrl := config.Registry + models.LoginEndpoint
+	loginUrl := fmt.Sprintf("%s/%s", config.Registry, models.LoginEndpoint)
 	data := url.Values{}
 	data.Set("email", email)
 	data.Set("password", password)
