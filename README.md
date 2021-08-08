@@ -22,10 +22,12 @@
     - [x] cmd: `list`(lists apps)
       - [x] `added` (lists added apps in package)
       - [x] `all` (use --installed flag to list only apps found on system) (lists all possible apps from config)
-    - [ ] cmd: `install` (installs packages to appropriate directories)
+    - [x] cmd: `install` (installs packages to appropriate directories)
+        - [x] Backup before installation
+        - [ ] Revert if installation failes
     - [x] cmd: `get` (downloads package)
-    - [ ] cmd: `revert` (loads previous version)
-    - [ ] cmd: Find better place for logs.txt
+    - [x] cmd: Find better place for logs.txt + better logging
+    - [ ] cmd: `revert` (loads previous version from package archive)
 
 ## TODO ([dots-server](github.com/alvanrahimli/dots-server))
 ### Functionality:
