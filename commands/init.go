@@ -57,6 +57,8 @@ func (i Init) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 		// Initialize default packageName
 		if strings.Contains(opts.OutputDir, "/") {
 			packageName = path.Base(opts.PackageName)
+		} else if len(opts.Arguments) >= 2 {
+			packageName = opts.Arguments[1]
 		} else {
 			packageName = opts.OutputDir
 		}
