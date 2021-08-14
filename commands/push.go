@@ -121,6 +121,8 @@ func (p Push) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 	selectedRemoteUrl := ""
 	// If remote name is not given, push to default registry
 	if len(p.Options.Arguments) == 1 {
+		fmt.Printf("\nWARNING: No remote addresses found. Using default registry: %s\n",
+			os.Getenv("REGISTRY_DOMAIN"))
 		selectedRemoteUrl = fmt.Sprintf("%s/%s", config.Registry, models.AddPackageEndpoint)
 	} else {
 		// Get remote url from manifest by name

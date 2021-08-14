@@ -24,9 +24,10 @@
       - [x] `all` (use --installed flag to list only apps found on system) (lists all possible apps from config)
     - [x] cmd: `install` (installs packages to appropriate directories)
         - [x] Backup before installation
-        - [ ] Revert if installation failes
+        - [ ] Revert if installation fails
+    - [ ] cmd: `uninstall` (uninstalls package and returns bac .backup folder)
     - [x] cmd: `get` (downloads package)
-    - [x] cmd: Find better place for logs.txt + better logging
+    - [x] Find better place for logs.txt + better logging
     - [ ] cmd: `revert` (loads previous version from package archive)
 
 ## TODO ([dots-server](github.com/alvanrahimli/dots-server))

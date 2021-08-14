@@ -78,18 +78,18 @@ func (a Add) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 		}
 	}
 
-	// Remove old manifest
-	manifestPath := path.Join(opts.OutputDir, "manifest.json")
-	removeErr := os.Remove(manifestPath)
-	if removeErr != nil {
-		return models.CommandResult{
-			Code:    1,
-			Message: "Could not remove old manifest file",
-		}
-	}
-
 	// If there are new apps
 	if len(addedApps) > 0 {
+		// Remove old manifest
+		manifestPath := path.Join(opts.OutputDir, "manifest.json")
+		removeErr := os.Remove(manifestPath)
+		if removeErr != nil {
+			return models.CommandResult{
+				Code:    1,
+				Message: "Could not remove old manifest file",
+			}
+		}
+
 		if !manifest.Modified {
 			manifest.Modified = true
 			// Offer new version
@@ -105,16 +105,22 @@ func (a Add) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 			}
 		}
 
+		var resultMsg string
+		if len(addedApps) > 0 {
+			resultMsg += fmt.Sprintf("Following apps added to package: %s\n", strings.Join(addedApps, ", "))
+		}
+		if len(failedApps) > 0 {
+			resultMsg += fmt.Sprintf("These apps could not be added: %s\n", strings.Join(failedApps, ", "))
+		}
+
 		return models.CommandResult{
-			Code: 0,
-			Message: fmt.Sprintf("Following apps added to package: %s\n"+
-				"\tThese apps could not be added: %s\n",
-				strings.Join(addedApps, ", "), strings.Join(failedApps, ", ")),
+			Code:    0,
+			Message: resultMsg,
 		}
 	} else {
 		return models.CommandResult{
 			Code: 1,
-			Message: fmt.Sprintf("These apps could not be added: %s\n",
+			Message: fmt.Sprintf("\tThese apps could not be added: %s\n",
 				strings.Join(failedApps, ", ")),
 		}
 	}
