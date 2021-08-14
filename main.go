@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/alvanrahimli/dots-cli/commands"
+	"github.com/alvanrahimli/dots-cli/dlog"
 	"github.com/alvanrahimli/dots-cli/utils"
 	"os"
 )
@@ -10,10 +11,7 @@ import (
 func main() {
 	config, configErr := utils.ReadConfig()
 	if configErr != nil {
-		if os.IsNotExist(configErr) {
-			// TODO: Create new config file if not exists
-		}
-
+		dlog.Err(configErr.Error())
 		fmt.Printf("ERROR: %s\n", configErr.Error())
 		return
 	}

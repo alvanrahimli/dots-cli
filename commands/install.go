@@ -23,11 +23,6 @@ func (i Install) CheckRequirements() (bool, string) {
 }
 
 func (i Install) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.CommandResult {
-	// TODO: How to implement install command
-	// Install required apps (?)
-	// Backup old config files at .backup folder
-	// Install new files
-
 	// Backup old files
 	i.Options = opts
 	satisfiesRequirements, message := i.CheckRequirements()
