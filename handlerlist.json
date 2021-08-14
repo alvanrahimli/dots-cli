@@ -1,0 +1,34 @@
+{
+  "i3": {
+    "Version": "1.0.0",
+    "ConfigRoot": "$HOME/.config/i3",
+    "Dotfiles": [
+      "$HOME/.config/i3/config"
+    ]
+  },
+  "niceapp": {
+    "Version": "54.2",
+    "ConfigRoot": "$HOME/.config/niceapp",
+    "Dotfiles": [
+      "$HOME/.config/niceapp/config.conf",
+      "$HOME/.config/niceapp/settings.json"
+    ]
+  },
+  "test": {
+    "Version": "0.1.5-build:2",
+    "ConfigRoot": "$HOME/test",
+    "Dotfiles": [
+      "$HOME/test/salam.txt",
+      "$HOME/test/necesen.txt",
+      "$HOME/test/hmm/yaxsi.json"
+    ]
+  },
+  "i4": {
+    "Version": "1.0.4",
+    "ConfigRoot": "$HOME/.config/i4",
+    "Dotfiles": [
+      "$HOME/.config/i4/config.conf",
+      "$HOME/.config/i4/includes/salam.txt"
+    ]
+  }
+}
