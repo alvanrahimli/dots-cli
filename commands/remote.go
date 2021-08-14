@@ -102,7 +102,7 @@ func (r Remote) AddRemote(manifest *models.Manifest) models.CommandResult {
 		}
 	}
 
-	req.Header.Add("DOTS_CLI_VERSION", models.AppVersion)
+	req.Header.Add("DOTS-CLI-VERSION", models.AppVersion)
 	response, doErr := client.Do(req)
 	if doErr != nil {
 		return models.CommandResult{

@@ -2,6 +2,9 @@
 
 `dots` is CLI tool to build, version and publish config file bundles.
 
+
+
+___
 ## TODO (shared):
 - [ ] Writing comprehensive documentation
 - [ ] Designing landing page
