@@ -9,17 +9,19 @@ import (
 
 func GetCommands() map[string]models.Command {
 	return map[string]models.Command{
-		"help":    Help{},
-		"init":    Init{},
-		"add":     Add{},
-		"remove":  Remove{},
-		"pack":    Pack{},
-		"login":   Login{},
-		"push":    Push{},
-		"remote":  Remote{},
-		"list":    List{},
-		"get":     Get{},
-		"install": Install{},
+		"help":      Help{},
+		"init":      Init{},
+		"add":       Add{},
+		"remove":    Remove{},
+		"pack":      Pack{},
+		"login":     Login{},
+		"push":      Push{},
+		"remote":    Remote{},
+		"list":      List{},
+		"get":       Get{},
+		"install":   Install{},
+		"uninstall": Uninstall{},
+		"update-db": UpdateDb{},
 	}
 }
 
