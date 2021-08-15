@@ -8,7 +8,7 @@ With `dots` you can build and publish your customization with only 2 commands! I
 # Installation
 Copy and paste following command in your terminal emulator and you are ready to go!
 ```
-curl installation.sh | sh
+curl https://raw.githubusercontent.com/alvanrahimli/dots-cli/master/install.sh | sh
 ```
 
 ## Usage
