@@ -15,5 +15,9 @@ echo "Adding dots as alias to dots-cli-linux"
 echo 'alias dots="dots-cli-linux"' >> "$HOME"/.bashrc
 source "$HOME"/.bashrc
 
+echo "Creating config file"
+mkdir "$HOME"/.config/dots-cli/
+curl https://raw.githubusercontent.com/alvanrahimli/dots-cli/master/config.json > "$HOME"/.config/dots-cli/config.json
+
 echo "DONE! Your are ready to go!"
 echo "Run 'dots init myfirstpack' to initialize your first package"

@@ -13,6 +13,7 @@ curl https://raw.githubusercontent.com/alvanrahimli/dots-cli/master/install.sh |
 
 ## Usage
 ### Creating Package
+- `dots login`                          Logs user in (essential to push package)
 - `dots init <package_name>`            Initializes empty package in current directory
 - `dots add <app1_name> <app2_name>`    Adds specified apps to package
 - `dots remove <app1_name>`             Removes specified apps from package

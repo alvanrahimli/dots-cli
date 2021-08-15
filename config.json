@@ -1,0 +1,8 @@
+{
+  "AuthorName": "",
+  "AuthorEmail": "",
+  "AuthorToken": "",
+  "Registry": "https://dots.rahim.li",
+  "ConfigUrl": "https://raw.githubusercontent.com/alvanrahimli/dots-cli/master/handlerlist.json",
+  "Handlers": {}
+}
