@@ -1,15 +1,32 @@
-# dots-cli
+# dots
 
-`dots` is CLI tool to build, version and publish config file bundles.
+`dots` is a CLI tool to build, version and publish config file bundles.  
+___
+_Have you ever saw a screenshot of beautiful desktop customization at r/unixporn and wanted to try it out? But author did not provide dotfiles (config files of apps)! This is because he/she needs to host those files at github/gitlab, and it is not as easy as using `dots`.  
+With `dots` you can build and publish your customization with only 2 commands! Installation? It also takes only 2 commands!_
 
+# Installation
+Copy and paste following command in your terminal emulator and you are ready to go!
+```
+curl installation.sh | sh
+```
 
+## Usage
+### Creating Package
+- `dots init <package_name>`            Initializes empty package in current directory
+- `dots add <app1_name> <app2_name>`    Adds specified apps to package
+- `dots remove <app1_name>`             Removes specified apps from package
+- `dots pack`                           Saves current state & ready to push
+- `dots push`                           Pushes package to default registry
+  - `dots remote add origin https://dots.rahim.li`   Adds new remote address. 
+  - `dots push origin`                  Pushes package to specified registry
+
+### Installing package
+- `dots get package@author.dots.rahim.li` Downloads specified package to current directory
+- `dots install`                          Installs dotfiles
+- `dots uninstall`                        Uninstalls dotfiles & restores previous dotfiles
 
 ___
-## TODO (shared):
-- [ ] Writing comprehensive documentation
-- [ ] Designing landing page
-- [ ] Providing screenshots/videos for demonstration
-
 ## TODO (client):
 ### Functionality:
 - [x] Commands:
@@ -32,13 +49,3 @@ ___
     - [x] cmd: `get` (downloads package)
     - [x] Find better place for logs.txt + better logging
 
-## TODO ([dots-server](github.com/alvanrahimli/dots-server))
-### Functionality:
-- [x] Modelling
-- [x] Login / Register API endpoints
-- [x] Push package API endpoint
-- [x] Get PackageArchive endpoint
-- [ ] Update & Delete packages endpoint
-- [ ] Enhanced models (info, settings etc.)
-- [ ] Enhanced endpoints for webapp
-- [ ] Security considerations
