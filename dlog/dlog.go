@@ -26,7 +26,7 @@ func init() {
 		log.Fatal(err)
 	}
 
-	infoLogger = log.New(file, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile)
+	infoLogger = log.New(file, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile|log.LstdFlags)
 	warnLogger = log.New(file, "WARNING: ", log.Ldate|log.Ltime|log.Lshortfile)
 	errLogger = log.New(file, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile)
 	debugLogger = log.New(file, "DEBUG: ", log.Ldate|log.Ltime|log.Lshortfile)

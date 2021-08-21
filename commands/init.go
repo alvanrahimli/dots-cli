@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"github.com/alvanrahimli/dots-cli/dlog"
 	"github.com/alvanrahimli/dots-cli/models"
 	"github.com/alvanrahimli/dots-cli/utils"
 	"os"
@@ -133,15 +134,15 @@ func (i Init) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 		os.Exit(1)
 	}
 
-	ex, err := os.Executable()
+	ex, err := os.Getwd()
 	if err != nil {
-		fmt.Printf("ERROR: %s\n", err.Error())
+		dlog.Err(err.Error())
 		os.Exit(1)
 	}
 
 	finalPath := path.Join(filepath.Dir(ex), opts.OutputDir)
 	return models.CommandResult{
 		Code:    0,
-		Message: fmt.Sprintf("Initialized empty dots-cli package in %s", finalPath),
+		Message: fmt.Sprintf("Initialized empty dots package in %s", finalPath),
 	}
 }
