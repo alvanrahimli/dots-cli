@@ -1,7 +1,7 @@
 # dots
 
 `dots` is a CLI tool to build, version and publish config file bundles.  
-___
+
 _Have you ever saw a screenshot of beautiful desktop customization at r/unixporn and wanted to try it out? But author did not provide dotfiles (config files of apps)! This is because he/she needs to host those files at github/gitlab, and it is not as easy as using `dots`.  
 With `dots` you can build and publish your customization with only 2 commands! Installation? It also takes only 2 commands!_
 
