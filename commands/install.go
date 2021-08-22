@@ -6,6 +6,7 @@ import (
 	"github.com/alvanrahimli/dots-cli/models"
 	"github.com/alvanrahimli/dots-cli/utils"
 	"os"
+	"os/exec"
 	"path"
 	"strings"
 )
@@ -38,6 +39,13 @@ func (i Install) ExecuteCommand(opts *models.Opts, config *models.AppConfig) mod
 		return models.CommandResult{
 			Code:    1,
 			Message: "Could not read manifest. Did you initialize package?",
+		}
+	}
+
+	for _, app := range manifest.Apps {
+		_, err := exec.LookPath(app.Name)
+		if err != nil {
+			fmt.Printf("App '%s' not found on system. Please install it after installation", app.Name)
 		}
 	}
 
@@ -154,6 +162,17 @@ func (i Install) ExecuteCommand(opts *models.Opts, config *models.AppConfig) mod
 				removeErr := os.Remove(dotfile)
 				if removeErr != nil {
 					dlog.Info("Could not remove %s", dotfile)
+				}
+			} else {
+				// If app is not installed (dotfile does not exist) create
+				_, statErr = os.Stat(path.Dir(dotfile))
+				if statErr != nil {
+					mkdirAllErr := os.MkdirAll(path.Dir(dotfile), os.ModePerm)
+					if mkdirAllErr != nil {
+						dlog.Err(mkdirAllErr.Error())
+						dlog.Info("Could not make all directories for dotfile %s. Skipping...\n", dotfile)
+						continue
+					}
 				}
 			}
 
