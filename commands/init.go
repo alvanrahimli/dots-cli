@@ -38,13 +38,18 @@ func (i Init) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 		os.Exit(1)
 	}
 
-	// If no value is given, use current directory
-	if opts.OutputDir == "" {
-		opts.OutputDir = "."
+	// If no output directory is given, use package name as directory and create it
+	if opts.OutputDir == "." {
+		opts.OutputDir = opts.Arguments[1]
+		mkdirErr := os.MkdirAll(opts.OutputDir, os.ModePerm)
+		if mkdirErr != nil {
+			dlog.Err(mkdirErr.Error())
+			os.Exit(1)
+		}
 	} else {
 		mkdirErr := os.MkdirAll(opts.OutputDir, os.ModePerm)
 		if mkdirErr != nil {
-			fmt.Printf("ERROR: %s\n", mkdirErr.Error())
+			dlog.Err(mkdirErr.Error())
 			os.Exit(1)
 		}
 	}
@@ -130,7 +135,7 @@ func (i Init) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 
 	writeErr := utils.WriteManifestFile(opts.OutputDir, &manifest)
 	if writeErr != nil {
-		fmt.Printf("ERROR: %s\n", writeErr.Error())
+		dlog.Err(writeErr.Error())
 		os.Exit(1)
 	}
 
