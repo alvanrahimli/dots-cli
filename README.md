@@ -42,6 +42,8 @@ ___
 ## TODO (client):
 ### Functionality:
 - [x] Commands:
+    - [ ] cmd: `config` (tweak default registry and many more)
+    - [ ] cmd: `register` (Registers new user from CLI)
     - [x] cmd: `init` (initializes empty package)
     - [x] cmd: `add` (adds app to package)
     - [x] cmd: `remove` (removes app from package)
