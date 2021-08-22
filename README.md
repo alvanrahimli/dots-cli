@@ -3,7 +3,14 @@
 `dots` is a CLI tool to build, version and publish config file bundles.  
 
 _Have you ever saw a screenshot of beautiful desktop customization at r/unixporn and wanted to try it out? But author did not provide dotfiles (config files of apps)! This is because he/she needs to host those files at github/gitlab, and it is not as easy as using `dots`.  
-With `dots` you can build and publish your customization with only 2 commands! Installation? It also takes only 2 commands!_
+With `dots` you can build and publish your desktop rice (or any other dotfile) with only 2 commands! Installation? It also takes only 2 commands!_
+
+# Getting Started
+NO GIT REPOSITORY OR ELSE IS NEEDED  
+To get started, you only need dots-cli tool. 
+App does not have any dependecies.  
+You can download by following [Installation guide](#installation).  
+Install tool and run `dots init myfirstpack`, and you have just created your first package.
 
 # Installation
 Copy and paste following command in your terminal emulator and you are ready to go!
