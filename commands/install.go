@@ -41,6 +41,7 @@ func (i Install) ExecuteCommand(opts *models.Opts, config *models.AppConfig) mod
 		}
 	}
 
+	// TODO: Handle mismatching versions
 	// BACKUP
 	for _, app := range manifest.Apps {
 		dlog.Info("Backup is in progress for '%s'")
@@ -49,7 +50,6 @@ func (i Install) ExecuteCommand(opts *models.Opts, config *models.AppConfig) mod
 		var handler models.Handler
 		for appHandler, details := range config.Handlers {
 			if appHandler == app.Name {
-				// TODO: Handle mismatching versions
 				handler = details
 			}
 		}

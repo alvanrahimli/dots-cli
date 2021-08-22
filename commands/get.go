@@ -37,9 +37,11 @@ func (g Get) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 		}
 	}
 
+	fmt.Printf("By default, dots-cli installs package from %s. \n"+
+		"You can change this behaivour from: $HOME/.config/dots-cli/config.json, Registry parameter\n",
+		config.Registry)
 	packageName := g.Options.Arguments[1]
 
-	// TODO: Support other registries by absolute url
 	client := &http.Client{}
 	getUrl := fmt.Sprintf("%s/%s/%s", config.Registry, models.PackagesEndpoint, packageName)
 	dlog.Info("Sending HTTP GET to %s", getUrl)
