@@ -10,21 +10,25 @@ Copy and paste following command in your terminal emulator and you are ready to 
 ```
 curl https://raw.githubusercontent.com/alvanrahimli/dots-cli/master/install.sh | sh
 ```
+__You can also go to the release page and download executable (dots-cli-linux) yourself and use.__
 
 ## Usage
 ### Creating Package
 - `dots login`                          Logs user in (essential to push package)
 - `dots init <package_name>`            Initializes empty package in current directory
 - `dots add <app1_name> <app2_name>`    Adds specified apps to package
+- `dots add -w path/to/wallpaper.jpg`   Adds wallpaper to package
 - `dots remove <app1_name>`             Removes specified apps from package
 - `dots pack`                           Saves current state & ready to push
 - `dots push`                           Pushes package to default registry
-  - `dots remote add origin https://dots.rahim.li`   Adds new remote address. 
-  - `dots push origin`                  Pushes package to specified registry
+- `dots remote add <remote_name> <remote_address>`   Adds new remote address. 
+  - For now, remote addresses should not contain trailing slash. This will be fixed in later releases
+- `dots push origin`                  Pushes package to specified registry
 
 ### Installing package
 - `dots get package@author.dots.rahim.li` Downloads specified package to current directory
-- `dots install`                          Installs dotfiles
+- `dots install`                          Installs dotfiles & wallpapers
+  - When installing wallpapers, app copies them to `$HOME/.local/share/backgrounds/`. You can also use them from package's folder
 - `dots uninstall`                        Uninstalls dotfiles & restores previous dotfiles
 
 ___
