@@ -6,7 +6,7 @@ if [ -f dots-cli-linux ]; then
   rm -f dots-cli-linux
 fi
 
-wget -nv https://github.com/alvanrahimli/dots-cli/releases/download/v0.1/dots-cli-linux
+wget -nv https://github.com/alvanrahimli/dots-cli/releases/download/v1.0/dots-cli-linux
 echo "  > Giving executable permission to app"
 chmod +x dots-cli-linux
 echo "  > Moving file to /usr/bin/"
