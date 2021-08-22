@@ -54,7 +54,7 @@ func DispatchCommand(config *models.AppConfig, args []string) {
 	// Handle command
 	result := commands[args[0]].ExecuteCommand(&opts, config)
 	if result.Code == 0 {
-		fmt.Printf("Command executed successfully:\n\t %s\n", result.Message)
+		fmt.Printf("Command executed successfully.\n\t %s\n", result.Message)
 		os.Exit(0)
 	} else {
 		fmt.Printf("Error occured: %s\n", result.Message)

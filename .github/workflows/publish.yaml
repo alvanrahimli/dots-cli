@@ -14,7 +14,7 @@ jobs:
         with:
           go-version: "^1.13.1"
       - name: Build
-        run: go build -o dots-cli
+        run: go build -o dots-cli-linux
       - name: Create release
         id: create_release
         uses: actions/create-release@v1

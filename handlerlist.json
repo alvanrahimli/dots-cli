@@ -1,4 +1,11 @@
 {
+  "vim": {
+    "Version": "",
+    "ConfigRoot": "",
+    "Dotfiles": [
+      ""
+    ]
+  },
   "i3": {
     "Version": "1.0.0",
     "ConfigRoot": "$HOME/.config/i3",
@@ -6,29 +13,33 @@
       "$HOME/.config/i3/config"
     ]
   },
-  "niceapp": {
-    "Version": "54.2",
-    "ConfigRoot": "$HOME/.config/niceapp",
+  "emacs": {
+    "Version": "",
+    "ConfigRoot": "",
     "Dotfiles": [
-      "$HOME/.config/niceapp/config.conf",
-      "$HOME/.config/niceapp/settings.json"
+      ""
     ]
   },
-  "test": {
-    "Version": "0.1.5-build:2",
-    "ConfigRoot": "$HOME/test",
+  "xmonad": {
+    "Version": "0.15",
+    "ConfigRoot": "$HOME/.xmonad",
     "Dotfiles": [
-      "$HOME/test/salam.txt",
-      "$HOME/test/necesen.txt",
-      "$HOME/test/hmm/yaxsi.json"
+      "$HOME/.xmonad/xmonad.hs"
     ]
   },
-  "i4": {
-    "Version": "1.0.4",
-    "ConfigRoot": "$HOME/.config/i4",
+  "zsh": {
+    "Version": "5.8",
+    "ConfigRoot": "$HOME",
     "Dotfiles": [
-      "$HOME/.config/i4/config.conf",
-      "$HOME/.config/i4/includes/salam.txt"
+      "$HOME/.zshrc"
+    ]
+  },
+  "nvim": {
+    "Version": "v0.5.0",
+    "ConfigRoot": "$HOME/.config/nvim",
+    "Dotfiles": [
+      "$HOME/.config/nvim/init.vim",
+      "$HOME/.config/nvim/init.lua"
     ]
   }
 }

@@ -41,6 +41,33 @@ func (i Install) ExecuteCommand(opts *models.Opts, config *models.AppConfig) mod
 		}
 	}
 
+	// Check for wallpaper directory
+	wpDir := os.ExpandEnv("$HOME/.local/share/backgrounds")
+	shouldCopyWallpapers := true
+	_, statErr := os.Stat(wpDir)
+	if statErr != nil {
+		shouldCopyWallpapers = false
+		mkdirErr := os.MkdirAll(wpDir, os.ModePerm)
+		if mkdirErr != nil {
+			dlog.Err(mkdirErr.Error())
+			fmt.Printf("Could not create %s\n", wpDir)
+			fmt.Println("You can use wallpapers from current directory later.")
+		} else {
+			shouldCopyWallpapers = true
+		}
+	}
+
+	if shouldCopyWallpapers {
+		for _, wallpaper := range manifest.Wallpapers {
+			localWpName := path.Join(wpDir, path.Base(wallpaper))
+			copyErr := utils.CopyFile(wallpaper, localWpName)
+			if copyErr != nil {
+				dlog.Err(copyErr.Error())
+				fmt.Printf("Could not copy %s to %s\n", wallpaper, localWpName)
+			}
+		}
+	}
+
 	// TODO: Handle mismatching versions
 	// BACKUP
 	for _, app := range manifest.Apps {

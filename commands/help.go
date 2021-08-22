@@ -21,6 +21,7 @@ func (h Help) ExecuteCommand(_ *models.Opts, _ *models.AppConfig) models.Command
 	fmt.Println()
 	fmt.Println("    dots-cli init <pack_name> 	        Initializes new package in")
 	fmt.Println("    dots-cli add <app1> <app2>         Adds given apps to package")
+	fmt.Println("    dots-cli add -w <image_path>       Adds specified wallpaper to package")
 	fmt.Println("    dots-cli remote add <remote_url>   Adds new remote to package")
 	fmt.Println("    dots-cli pack                      Makes package version")
 	fmt.Println("    dots-cli push <remote_name>        Pushes package to specified remote")
