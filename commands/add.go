@@ -21,7 +21,7 @@ func (a Add) GetArguments() []string {
 }
 
 func (a Add) CheckRequirements() (bool, string) {
-	if len(a.Options.Arguments) < 2 && a.Options.WpPath == "" {
+	if len(a.Options.Arguments) < 2 && a.Options.WpPath == "" && a.Options.Screenshot == "" {
 		return false, fmt.Sprintf("%s is not enough arguments for add command.", a.Options.Arguments)
 	}
 
@@ -45,6 +45,7 @@ func (a Add) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 	}
 
 	// If user adds wallpaper
+	wallpaperAdded := false
 	if a.Options.WpPath != "" {
 		wallpapersDir := path.Join(a.Options.OutputDir, "wallpapers")
 		// Check for wallpapers directory
@@ -66,9 +67,32 @@ func (a Add) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 			dlog.Err(copyErr.Error())
 			fmt.Println("Could not copy wallpaper")
 		} else {
+			wallpaperAdded = true
 			fmt.Println("Wallpaper added")
 			relativePath := path.Join("wallpapers", path.Base(a.Options.WpPath))
 			manifest.Wallpapers = append(manifest.Wallpapers, relativePath)
+		}
+	}
+
+	// If user adds screenshot
+	screenshotAdded := false
+	if a.Options.Screenshot != "" {
+		ssDir := path.Join(a.Options.OutputDir, "screenshots")
+		_, statErr := os.Stat(ssDir)
+		if statErr != nil {
+			mkdirErr := os.Mkdir(ssDir, os.ModePerm)
+			if mkdirErr != nil {
+				fmt.Printf("Could not create screenshots folder. Logs can be found at $HOME/.dots-cli.log")
+				dlog.Err(mkdirErr.Error())
+			}
+		}
+
+		copyErr := utils.CopyFile(a.Options.Screenshot, path.Join(ssDir, path.Base(a.Options.Screenshot)))
+		if copyErr != nil {
+			fmt.Printf("Could not add screenshot. Logs can be found at $HOME/.dots-cli.log")
+			dlog.Err(copyErr.Error())
+		} else {
+			screenshotAdded = true
 		}
 	}
 
@@ -85,8 +109,8 @@ func (a Add) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 	}
 
 	// Exit app if all apps are in package
-	if len(possibleAppNames) == 0 && a.Options.WpPath == "" {
-		fmt.Println("All packages are already in package")
+	if len(possibleAppNames) == 0 && !wallpaperAdded && !screenshotAdded {
+		fmt.Println("All files are already in package")
 		os.Exit(1)
 	}
 
@@ -108,7 +132,7 @@ func (a Add) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models.
 	}
 
 	// If there are new apps
-	if len(addedApps) > 0 || a.Options.WpPath != "" {
+	if len(addedApps) > 0 || wallpaperAdded || screenshotAdded {
 		// Remove old manifest
 		manifestPath := path.Join(opts.OutputDir, "manifest.json")
 		removeErr := os.Remove(manifestPath)

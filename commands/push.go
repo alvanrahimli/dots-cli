@@ -150,7 +150,8 @@ func (p Push) ExecuteCommand(opts *models.Opts, config *models.AppConfig) models
 		}
 	}
 
-	addPackageUrl := fmt.Sprintf("%s://%s/%s", remoteUrl.Scheme, remoteUrl.Host, models.AddPackageEndpoint)
+	addPackageUrl := fmt.Sprintf("%s://%s", remoteUrl.Scheme, remoteUrl.Host+remoteUrl.Path)
+	dlog.Debug("Package will be uploaded to %s", addPackageUrl)
 	uploadErr := Upload(client, addPackageUrl, values, config)
 	if uploadErr != nil {
 		fmt.Println(uploadErr.Error())

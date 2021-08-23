@@ -20,33 +20,36 @@ type Opts struct {
 	AuthorName  string `long:"author-name" description:"Author name"`
 	AuthorEmail string `long:"author-email" description:"Author email"`
 	Installed   bool   `long:"installed" description:"Should app print only installed apps"`
-	WpPath      string `short:"w" long:"wallpaper" description:"Adds wallpaper file"`
+	WpPath      string `short:"w" long:"wallpaper" description:"Wallpaper file path"`
+	Screenshot  string `short:"s" long:"screenshots" description:"Screenshot file path"`
 	//AppName		string `short:"a" long:"app" description:"App to add to package"`
 	Arguments []string
 }
 
 func NewManifest() Manifest {
 	return Manifest{
-		Id:         "",
-		Name:       "",
-		Author:     Author{},
-		Modified:   true,
-		Versions:   make([]Version, 0),
-		Apps:       make([]App, 0),
-		Remotes:    make([]RemoteAddr, 0),
-		Wallpapers: make([]string, 0),
+		Id:          "",
+		Name:        "",
+		Author:      Author{},
+		Modified:    true,
+		Versions:    make([]Version, 0),
+		Apps:        make([]App, 0),
+		Remotes:     make([]RemoteAddr, 0),
+		Wallpapers:  make([]string, 0),
+		Screenshots: make([]string, 0),
 	}
 }
 
 type Manifest struct {
-	Id         string
-	Name       string
-	Author     Author
-	Modified   bool
-	Versions   []Version
-	Apps       []App
-	Remotes    []RemoteAddr
-	Wallpapers []string
+	Id          string
+	Name        string
+	Author      Author
+	Modified    bool
+	Versions    []Version
+	Apps        []App
+	Remotes     []RemoteAddr
+	Wallpapers  []string
+	Screenshots []string
 }
 
 type Version struct {
